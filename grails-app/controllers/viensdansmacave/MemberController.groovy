@@ -7,6 +7,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class MemberController {
 
+    MemberService memberService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -20,6 +22,10 @@ class MemberController {
 
     def create() {
         respond new Member(params)
+    }
+
+    def createSimpleAccount() {
+
     }
 
     @Transactional
@@ -42,6 +48,21 @@ class MemberController {
                 redirect memberInstance
             }
             '*' { respond memberInstance, [status: CREATED] }
+        }
+    }
+
+    def saveSimpleAccount() {
+        def username = params.username
+        def password = params.password
+
+        def retourCreation
+
+        retourCreation = memberService.saveSimpleAccount(username, password)
+
+        if (!retourCreation.hasErrors()) {
+            [retourCreation: retourCreation.username]
+        } else {
+            render(view: 'createSimpleAccount',model:[retourCreation: retourCreation])
         }
     }
 

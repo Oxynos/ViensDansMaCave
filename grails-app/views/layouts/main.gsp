@@ -20,9 +20,9 @@
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner">
-			<a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a>
+			<a class="title" href="${createLink(controller:"home",action: "index")}">Viens dans ma cave</a>
 			<sec:ifNotLoggedIn>
-				Créer un compte
+				<g:link controller='member' action='createSimpleAccount'>Créer un compte</g:link>
 			</sec:ifNotLoggedIn>
 		</div>
 

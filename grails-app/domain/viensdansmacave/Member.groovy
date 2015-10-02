@@ -65,6 +65,11 @@ class Member implements Serializable {
 		age nullable: true
 		country nullable: true
 		city nullable: true
+		/*enabled display: false
+		accountExpired display: false
+		accountLocked display: false
+		passwordExpired display: false*/
+
 	}
 
 	static mapping = {
