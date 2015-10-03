@@ -27,7 +27,7 @@
     <g:field type="text" name="username" required="true"></g:field>
     <br/>
     <label>Mot de passe *</label>
-    <g:field type="text" name="password" required="true"></g:field>
+    <g:field type="password" name="password" required="true"></g:field>
     <br/>
     <g:actionSubmit value="Creer compte" action="saveSimpleAccount"/>
 </g:form>

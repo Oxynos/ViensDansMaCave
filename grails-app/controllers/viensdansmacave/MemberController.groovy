@@ -60,7 +60,7 @@ class MemberController {
         retourCreation = memberService.saveSimpleAccount(username, password)
 
         if (!retourCreation.hasErrors()) {
-            [retourCreation: retourCreation.username]
+            render(view: 'saveSimpleAccount',model:[retourCreation: retourCreation.username])
         } else {
             render(view: 'createSimpleAccount',model:[retourCreation: retourCreation])
         }

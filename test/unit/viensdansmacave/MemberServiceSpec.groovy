@@ -9,12 +9,21 @@ import spock.lang.Specification
 @TestFor(MemberService)
 class MemberServiceSpec extends Specification {
 
+    MemberDAOService memberDAOService
+
     def setup() {
+        memberDAOService = Mock(MemberDAOService)
+        service.memberDAOService = memberDAOService
     }
 
     def cleanup() {
     }
 
-    void "test something"() {
+    void "Test the saveSimpleAccount method calls the MemberDAOService method"() {
+        when: "The saveSimpleAccount method is called with valid parameters"
+        service.saveSimpleAccount('toto','pass')
+
+        then: "The saveSimpleAccount method of the MemberDAOService is called"
+        1 * memberDAOService.saveSimpleAccount(_)
     }
 }

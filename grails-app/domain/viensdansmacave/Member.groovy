@@ -9,7 +9,7 @@ class Member implements Serializable {
 	String username
 	String password
 	String email
-	Integer age
+	Date dateNaissance
 	String country
 	String city
 	boolean enabled = true
@@ -62,13 +62,17 @@ class Member implements Serializable {
 		username blank: false, unique: true
 		password blank: false
 		email email:true, nullable: true
-		age nullable: true
+		dateNaissance nullable: true, validator: {
+			Calendar c1 = GregorianCalendar.getInstance()
+			c1.set(Calendar.HOUR_OF_DAY, 0);
+			c1.set(Calendar.MINUTE, 0);
+			c1.set(Calendar.SECOND, 0);
+			c1.set(Calendar.MILLISECOND, 0);
+			if (it >= c1.getTime()) return false
+		}
 		country nullable: true
 		city nullable: true
-		/*enabled display: false
-		accountExpired display: false
-		accountLocked display: false
-		passwordExpired display: false*/
+
 
 	}
 

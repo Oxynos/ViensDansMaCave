@@ -5,13 +5,19 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(MemberController)
-@Mock(Member)
+@Mock([Member,MemberService])
 class MemberControllerSpec extends Specification {
+
+    MemberService memberServiceMock = Mock(MemberService) {saveSimpleAccount(_,_) >> Mock(Member) {hasErrors() >> false}}
+    MemberService memberServiceMockErr = Mock(MemberService) {saveSimpleAccount(_,_) >> Mock(Member) {hasErrors() >> true}}
+
 
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
         //params["name"] = 'someValidName'
+        params["username"] = 'toto'
+        params["password"] = 'pass'
     }
 
     void "Test the index action returns the correct model"() {
@@ -144,5 +150,23 @@ class MemberControllerSpec extends Specification {
         Member.count() == 0
         response.redirectedUrl == '/member/index'
         flash.message != null
+    }
+
+    void "Test that the saveSimpleAccount action renders the correct view"() {
+
+        when: "The saveSimpleAccount action is executed with a valid instance"
+        controller.memberService = memberServiceMock
+        populateValidParams(params)
+        controller.saveSimpleAccount()
+
+        then: "The saveSimpleAccount view is rendered"
+        view == '/member/saveSimpleAccount'
+
+        when: "The saveSimpleAccount action is executed with an invalid instance"
+        controller.memberService = memberServiceMockErr
+        controller.saveSimpleAccount()
+
+        then: "The createSimpleAccount view is rendered"
+        view == '/member/createSimpleAccount'
     }
 }
