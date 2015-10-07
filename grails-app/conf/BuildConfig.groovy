@@ -85,3 +85,9 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.1"
     }
 }
+
+coverage {
+    enabledByDefault = true
+    html = true
+    xml = true
+}
