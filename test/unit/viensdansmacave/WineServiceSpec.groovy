@@ -9,12 +9,29 @@ import spock.lang.Specification
 @TestFor(WineService)
 class WineServiceSpec extends Specification {
 
+    WineDAOService wineDAOService
+
     def setup() {
+        wineDAOService = Mock(WineDAOService)
+        service.wineDAOService = wineDAOService
     }
 
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test getting all names distinct"() {
+        when: "the service is called"
+        service.findWineNames()
+
+        then: "the service use the good DAO method"
+        1 * wineDAOService.findWineNames()
+    }
+
+    void "test getting all years distinct"() {
+        when: "the service is called"
+        service.findWineYears()
+
+        then: "the service use the good DAO method"
+        1 * wineDAOService.findWineYears()
     }
 }
