@@ -20,6 +20,10 @@ class MemberController {
         respond memberInstance
     }
 
+    def showSimpleAccount() {
+
+    }
+
     def create() {
         respond new Member(params)
     }

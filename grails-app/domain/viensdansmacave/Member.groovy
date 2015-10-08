@@ -9,7 +9,7 @@ class Member implements Serializable {
 	String username
 	String password
 	String email
-	Date dateNaissance
+	Date birthday
 	String country
 	String city
 	boolean enabled = true
@@ -62,7 +62,7 @@ class Member implements Serializable {
 		username blank: false, unique: true
 		password blank: false
 		email email:true, nullable: true
-		dateNaissance nullable: true, validator: {
+		birthday nullable: true, validator: {
 			Calendar c1 = GregorianCalendar.getInstance()
 			c1.set(Calendar.HOUR_OF_DAY, 0);
 			c1.set(Calendar.MINUTE, 0);

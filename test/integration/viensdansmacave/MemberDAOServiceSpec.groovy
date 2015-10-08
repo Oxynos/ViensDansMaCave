@@ -13,7 +13,7 @@ class MemberDAOServiceSpec extends Specification{
         given: "A valid member"
         def member = new Member("toto", "pass")
         member.email = null
-        member.dateNaissance = null
+        member.birthday = null
         member.city = null
         member.country = null
         member.accountExpired = false

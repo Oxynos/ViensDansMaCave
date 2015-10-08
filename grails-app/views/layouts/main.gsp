@@ -27,6 +27,7 @@
 			</sec:ifNotLoggedIn>
 			<sec:ifLoggedIn>
 				<g:link controller='logout' action='index'>Se déconnecter</g:link>
+				<g:link controller='member' action='showSimpleAccount'>Mon compte</g:link>
 			</sec:ifLoggedIn>
 		</div>
 

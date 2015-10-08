@@ -11,7 +11,7 @@ class MemberService {
 
         def member = new Member(username, password)
         member.email = null
-        member.dateNaissance = null
+        member.birthday = null
         member.city = null
         member.country = null
         member.accountExpired = false

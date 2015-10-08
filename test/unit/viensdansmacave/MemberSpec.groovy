@@ -24,7 +24,7 @@ class MemberSpec extends Specification {
         member.username = testUserName
         member.password = testPassword
         member.email = testEmail
-        member.dateNaissance = testDateNaissance
+        member.birthday = testDateNaissance
         member.country = testCountry
         member.city = testCity
 
@@ -50,7 +50,7 @@ class MemberSpec extends Specification {
         member.username = testUserName
         member.password = testPassword
         member.email = testEmail
-        member.dateNaissance = testDateNaissance
+        member.birthday = testDateNaissance
         member.country = testCountry
         member.city = testCity
 
