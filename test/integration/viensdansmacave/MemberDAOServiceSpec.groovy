@@ -3,7 +3,7 @@ package viensdansmacave
 import spock.lang.*
 
 /**
- * Created by Stav on 03/10/2015.
+ * Created by Thomas Zoratto on 03/10/2015.
  */
 class MemberDAOServiceSpec extends Specification{
 
