@@ -138,4 +138,5 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/Member/**':  ['permitAll']
 ]
 grails.plugin.springsecurity.apf.postOnly = false
+grails.plugin.springsecurity.logout.postOnly = false
 
