@@ -50,11 +50,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${memberInstance?.age}">
+				<g:if test="${memberInstance?.birthday}">
 				<li class="fieldcontain">
-					<span id="age-label" class="property-label"><g:message code="member.age.label" default="Age" /></span>
+					<span id="birthday-label" class="property-label"><g:message code="member.birthday.label" default="Birthday" /></span>
 					
-						<span class="property-value" aria-labelledby="age-label"><g:fieldValue bean="${memberInstance}" field="age"/></span>
+						<span class="property-value" aria-labelledby="birthday-label"><g:fieldValue bean="${memberInstance}" field="birthday"/></span>
 					
 				</li>
 				</g:if>

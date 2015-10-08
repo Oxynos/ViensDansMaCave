@@ -1,21 +1,19 @@
 package viensdansmacave
 
-
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(MemberController)
-@Mock([Member,MemberService])
+@Mock([Member,MemberService,SpringSecurityService])
 class MemberControllerSpec extends Specification {
 
     MemberService memberServiceMock = Mock(MemberService) {saveSimpleAccount(_,_) >> Mock(Member) {hasErrors() >> false}}
     MemberService memberServiceMockErr = Mock(MemberService) {saveSimpleAccount(_,_) >> Mock(Member) {hasErrors() >> true}}
-
+    SpringSecurityService springSecurityService = Mock(SpringSecurityService) {getCurrentUser() >> Mock(Member)}
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
         params["username"] = 'toto'
         params["password"] = 'pass'
     }
@@ -168,5 +166,14 @@ class MemberControllerSpec extends Specification {
 
         then: "The createSimpleAccount view is rendered"
         view == '/member/createSimpleAccount'
+    }
+
+    void "Test that the showSimpleAccount action renders the correct view"() {
+        when: "The showSimpleAccount is called"
+        controller.springSecurityService = springSecurityService
+        controller.showSimpleAccount()
+
+        then: "The showSimpleAccount view is rendered"
+        view == '/member/showSimpleAccount'
     }
 }

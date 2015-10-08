@@ -1,5 +1,7 @@
 package viensdansmacave
 
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -8,6 +10,7 @@ import grails.transaction.Transactional
 class MemberController {
 
     MemberService memberService
+    SpringSecurityService springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -20,14 +23,17 @@ class MemberController {
         respond memberInstance
     }
 
+    @Secured('isAuthenticated()')
     def showSimpleAccount() {
-
+        def member = springSecurityService.currentUser
+        render(view: 'showSimpleAccount', model:[member: member])
     }
 
     def create() {
         respond new Member(params)
     }
 
+    @Secured('permitAll')
     def createSimpleAccount() {
 
     }
@@ -55,6 +61,7 @@ class MemberController {
         }
     }
 
+    @Secured('permitAll')
     def saveSimpleAccount() {
         def username = params.username
         def password = params.password

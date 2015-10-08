@@ -14,12 +14,31 @@
 
 <body>
 
+    <div class="content">
+
+    <h1><sec:loggedInUserInfo field="username"/></h1>
+
     <ol class="property-list member">
         <li class="fieldcontain">
-            <sec:loggedInUserInfo field="username"/>
+            <span class="property-label"> Email </span>
+            <span class="property-value"> ${member.email} </span>
+        </li>
+        <li class="fieldcontain">
+            <span class="property-label">Date de naissance </span>
+            <span class="property-value">${member.birthday}</span>
+        </li>
+        <li class="fieldcontain">
+            <span class="property-label">Pays </span>
+            <span class="property-value"> ${member.country}</span>
+        </li>
+        <li class="fieldcontain">
+            <span class="property-label">Ville </span>
+            <span class="property-value"> ${member.city}</span>
         </li>
 
     </ol>
+
+    </div>
 
 </body>
 </html>

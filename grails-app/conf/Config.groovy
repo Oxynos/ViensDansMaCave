@@ -133,9 +133,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/js/**':        ['permitAll'],
 	'/**/css/**':       ['permitAll'],
 	'/**/images/**':    ['permitAll'],
-	'/**/favicon.ico':  ['permitAll'],
-    '/Home/index':  ['permitAll'],
-    '/Member/**':  ['permitAll']
+	'/**/favicon.ico':  ['permitAll']
 ]
 grails.plugin.springsecurity.apf.postOnly = false
 grails.plugin.springsecurity.logout.postOnly = false
