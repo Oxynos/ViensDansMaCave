@@ -2,6 +2,7 @@ package viensdansmacave
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import wine.WineColor
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -17,6 +18,7 @@ class WineServiceSpec extends Specification {
     }
 
     def cleanup() {
+
     }
 
     void "test getting all names distinct"() {
@@ -33,5 +35,21 @@ class WineServiceSpec extends Specification {
 
         then: "the service use the good DAO method"
         1 * wineDAOService.findWineYears()
+    }
+
+    void "test getting wine by criteria with 2 params"() {
+        when: "the service is called"
+        service.getWinesByNameAndYear("test", 1982)
+
+        then: "the service use the good DAO method with correct parameters"
+        1 * wineDAOService.getWinesByNameYear("test", 1982)
+    }
+
+    void "test getting wine by criteria with 2 params optional"() {
+        when: "the service is called"
+        service.getWinesByNameAndYear(null, 0)
+
+        then: "the service use the good DAO method with correct parameters"
+        0 * wineDAOService.getWinesByNameYear(_, _)
     }
 }
