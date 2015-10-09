@@ -81,6 +81,5 @@ class Member implements Serializable {
 
 	static mapping = {
 		password column: '`password`'
-		cellar fetch: "join"
 	}
 }

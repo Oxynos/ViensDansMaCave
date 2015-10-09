@@ -13,7 +13,7 @@ class CellarController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Cellar.list(params), model: [cellarInstanceCount: Cellar.count()]
+        respond Cellar.list(params), model:[cellarInstanceCount: Cellar.count()]
     }
 
     def show(Cellar cellarInstance) {
@@ -32,11 +32,11 @@ class CellarController {
         }
 
         if (cellarInstance.hasErrors()) {
-            respond cellarInstance.errors, view: 'create'
+            respond cellarInstance.errors, view:'create'
             return
         }
 
-        cellarInstance.save flush: true
+        cellarInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
@@ -59,18 +59,18 @@ class CellarController {
         }
 
         if (cellarInstance.hasErrors()) {
-            respond cellarInstance.errors, view: 'edit'
+            respond cellarInstance.errors, view:'edit'
             return
         }
 
-        cellarInstance.save flush: true
+        cellarInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Cellar.label', default: 'Cellar'), cellarInstance.id])
                 redirect cellarInstance
             }
-            '*' { respond cellarInstance, [status: OK] }
+            '*'{ respond cellarInstance, [status: OK] }
         }
     }
 
@@ -82,14 +82,14 @@ class CellarController {
             return
         }
 
-        cellarInstance.delete flush: true
+        cellarInstance.delete flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Cellar.label', default: 'Cellar'), cellarInstance.id])
-                redirect action: "index", method: "GET"
+                redirect action:"index", method:"GET"
             }
-            '*' { render status: NO_CONTENT }
+            '*'{ render status: NO_CONTENT }
         }
     }
 
@@ -99,7 +99,7 @@ class CellarController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'cellar.label', default: 'Cellar'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*' { render status: NOT_FOUND }
+            '*'{ render status: NOT_FOUND }
         }
     }
 }

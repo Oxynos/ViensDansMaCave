@@ -6,6 +6,7 @@ import grails.transaction.Transactional
 class MemberService {
 
     MemberDAOService memberDAOService
+    CellarService cellarService
 
     def saveSimpleAccount(String username, String password) {
 
@@ -17,6 +18,7 @@ class MemberService {
         member.accountExpired = false
         member.accountLocked = false
         member.passwordExpired = false
+        cellarService.insertCellarForMember(member)
 
         memberDAOService.saveSimpleAccount(member)
 

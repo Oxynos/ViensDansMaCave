@@ -5,7 +5,8 @@ import grails.transaction.Transactional
 @Transactional
 class CellarDAOService {
 
-    def serviceMethod() {
-
+    def saveCellar(Cellar cellar) {
+        def cellarSave = cellar.save(flush:true)
+        cellarSave ?: cellar
     }
 }

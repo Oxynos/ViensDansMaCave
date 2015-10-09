@@ -9,26 +9,32 @@ import spock.lang.Specification
 @TestFor(Cellar)
 class CellarSpec extends Specification {
 
-    Cellar cellar
-
     def setup() {
-        cellar = new Cellar()
+
     }
 
     def cleanup() {
     }
 
-    void "test constraints for a valid member"() {
-        given: "a cellar initialized"
+    void "test la validite d'une cave"() {
+
+        given:"a member and a cellar initialized"
+        Member member = Mock(Member)
+        Cellar cellar = new Cellar(member: member)
         cellar.rate = testRate
 
-        expect: "the cellar is valid"
+        expect: "la cave est valide"
         cellar.validate() == true
+
+        and: "les propietes de la cave sont valides"
+        cellar.member == member
 
         where:
         testRate | _
-        1.0      | _
+        0.0      | _
         2.5      | _
         5.0      | _
+
+
     }
 }

@@ -5,7 +5,11 @@ import grails.transaction.Transactional
 @Transactional
 class CellarService {
 
-    def serviceMethod() {
+    CellarDAOService cellarDAOService
 
+    def insertCellarForMember(Member member) {
+        def cellar = new Cellar();
+        cellarDAOService.saveCellar(cellar);
+        member.cellar = cellar
     }
 }
