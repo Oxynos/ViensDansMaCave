@@ -29,12 +29,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: memberInstance, field: 'age', 'error')} ">
-	<label for="age">
-		<g:message code="member.age.label" default="Age" />
+<div class="fieldcontain ${hasErrors(bean: memberInstance, field: 'dateNaissance', 'error')} ">
+	<label for="dateNaissance">
+		<g:message code="member.dateNaissance.label" default="Date Naissance" />
 		
 	</label>
-	<g:field name="age" type="number" value="${memberInstance.age}"/>
+	<g:datePicker name="dateNaissance" precision="day"  value="${memberInstance?.dateNaissance}" default="none" noSelection="['': '']" />
 
 </div>
 
@@ -53,6 +53,15 @@
 		
 	</label>
 	<g:textField name="city" value="${memberInstance?.city}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: memberInstance, field: 'cellar', 'error')} ">
+	<label for="cellar">
+		<g:message code="member.cellar.label" default="Cellar" />
+		
+	</label>
+	<g:select id="cellar" name="cellar.id" from="${viensdansmacave.Cellar.list()}" optionKey="id" value="${memberInstance?.cellar?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 </div>
 
