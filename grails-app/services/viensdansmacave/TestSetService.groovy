@@ -1,6 +1,7 @@
 package viensdansmacave
 
 import grails.transaction.Transactional
+import wine.WineColor
 
 @Transactional
 class TestSetService {
