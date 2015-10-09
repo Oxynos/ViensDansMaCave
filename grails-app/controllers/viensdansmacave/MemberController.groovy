@@ -2,6 +2,7 @@ package viensdansmacave
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.security.core.context.SecurityContextHolder
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -121,6 +122,17 @@ class MemberController {
             }
             '*' { render status: NO_CONTENT }
         }
+    }
+
+    @Secured('isAuthenticated()')
+    def deleteSimpleAccount() {
+        def member = springSecurityService.currentUser
+        memberService.deleteSimpleAccount(member)
+
+        SecurityContextHolder.clearContext()
+
+        render(view: 'deleteSimpleAccount')
+
     }
 
     protected void notFound() {
