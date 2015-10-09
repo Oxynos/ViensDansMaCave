@@ -8,6 +8,7 @@ import spock.lang.*
 class MemberDAOServiceSpec extends Specification{
 
     MemberDAOService memberDAOService
+    TestSetService testSetService
 
     void "Test the saveSimpleAccount method correctly persists a Member instance"() {
         given: "A valid member"
@@ -25,5 +26,16 @@ class MemberDAOServiceSpec extends Specification{
 
         then: "The Member instance is correctly persisted"
         Member.count() == 1
+    }
+
+    void "Test the deleteSimpleAccount method correctly delete a Member"() {
+        given: "A Member from the test set"
+        def memberId = testSetService.member1.id
+
+        when: "The deleteSimpleAccount method is called"
+        memberDAOService.deleteSimpleAccount(testSetService.member1)
+
+        then: "The Member instance is correctly deleted"
+        Member.get(memberId) == null
     }
 }

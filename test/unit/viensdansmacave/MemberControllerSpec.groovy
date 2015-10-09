@@ -2,6 +2,7 @@ package viensdansmacave
 
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.test.mixin.*
+import org.springframework.security.core.context.SecurityContextHolder
 import spock.lang.*
 
 @TestFor(MemberController)
@@ -175,5 +176,17 @@ class MemberControllerSpec extends Specification {
 
         then: "The showSimpleAccount view is rendered"
         view == '/member/showSimpleAccount'
+    }
+
+    void "Test that the deleteSimpleAccount action renders the correct view and log out the user"() {
+        when: "The deleteSimpleAccount is called"
+        controller.springSecurityService = springSecurityService
+        controller.memberService = memberServiceMock
+        controller.deleteSimpleAccount()
+
+        then: "The deleteSimpleAccount view is rendered"
+        view == '/member/deleteSimpleAccount'
+        SecurityContextHolder.getContext().getAuthentication() == null
+
     }
 }
