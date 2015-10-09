@@ -11,8 +11,7 @@ class CellarControllerSpec extends Specification {
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
-        params["rate"] = 1
+        params["rate"] = 0.0
     }
 
     void "Test the index action returns the correct model"() {

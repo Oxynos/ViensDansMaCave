@@ -17,5 +17,9 @@ class CellarService {
         } else {
             false
         }
+    def insertCellarForMember(Member member) {
+        def cellar = new Cellar();
+        cellarDAOService.saveCellar(cellar);
+        member.cellar = cellar
     }
 }
