@@ -6,10 +6,6 @@ import wine.WineColor
 @Transactional
 class WineDAOService {
 
-    def serviceMethod() {
-
-    }
-
     def findWineNames() {
         def names = Wine.withCriteria {
             projections {
@@ -35,7 +31,7 @@ class WineDAOService {
             }
             if (year) {
                 and {
-                    equals 'year', year
+                    eq 'year', year
                 }
             }
         }

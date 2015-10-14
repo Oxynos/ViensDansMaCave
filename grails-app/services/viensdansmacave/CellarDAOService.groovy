@@ -24,4 +24,17 @@ class CellarDAOService {
             return false
         }
     }
+
+    def addWineInCellar(WineCellar wineCellar) {
+        def assoc = wineCellar.save(flush: true)
+        assoc ?: wineCellar
+    }
+
+    def addQuantity(WineCellar wineCellar) {
+        def res
+        if (wineCellar) {
+            res = addWineInCellar(wineCellar)
+        }
+        res
+    }
 }
