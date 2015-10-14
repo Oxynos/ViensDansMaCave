@@ -12,6 +12,7 @@ class CellarControllerSpec extends Specification {
         assert params != null
         // TODO: Populate valid properties like...
         params["rate"] = 0.0
+        params["member"] = Mock(Member)
     }
 
     void "Test the index action returns the correct model"() {

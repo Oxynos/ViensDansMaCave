@@ -10,10 +10,13 @@ import spock.lang.Specification
 class MemberServiceSpec extends Specification {
 
     MemberDAOService memberDAOService
+    CellarService cellarService
 
     def setup() {
         memberDAOService = Mock(MemberDAOService)
         service.memberDAOService = memberDAOService
+        cellarService = Mock(CellarService)
+        service.cellarService = cellarService
     }
 
     def cleanup() {

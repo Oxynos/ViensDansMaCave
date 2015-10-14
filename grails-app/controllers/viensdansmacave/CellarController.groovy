@@ -1,5 +1,6 @@
 package viensdansmacave
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
@@ -8,6 +9,9 @@ import grails.transaction.Transactional
 @Secured(['permitAll'])
 @Transactional(readOnly = true)
 class CellarController {
+
+    SpringSecurityService springSecurityService
+    CellarService cellarService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -100,6 +104,18 @@ class CellarController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
+        }
+    }
+
+    def removeWineFromCellar(Wine wine) {
+        if (wine == null) {
+            notFound()
+            return
+        }
+
+        Cellar cellar = springSecurityService.currentUser.cellar
+        if (cellarService.removeWineFromCellar(wine, cellar)) {
+            redirect action: "showCellar"
         }
     }
 }
