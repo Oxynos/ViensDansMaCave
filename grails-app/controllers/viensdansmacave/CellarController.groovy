@@ -1,13 +1,17 @@
 package viensdansmacave
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(['permitAll'])
 @Transactional(readOnly = true)
+@Secured('permitAll')
 class CellarController {
+
+    SpringSecurityService springSecurityService
+    CellarService cellarService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -22,6 +26,12 @@ class CellarController {
 
     def create() {
         respond new Cellar(params)
+    }
+
+    @Secured('isAuthenticated()')
+    def showCellar() {
+        def member = springSecurityService.currentUser
+        render(view: 'showCellar', model:[member: member])
     }
 
     @Transactional

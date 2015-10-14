@@ -20,3 +20,21 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: cellarInstance, field: 'wines', 'error')} ">
+	<label for="wines">
+		<g:message code="cellar.wines.label" default="Wines" />
+		
+	</label>
+	
+<ul class="one-to-many">
+<g:each in="${cellarInstance?.wines?}" var="w">
+    <li><g:link controller="wineCellar" action="show" id="${w.id}">${w?.encodeAsHTML()}</g:link></li>
+</g:each>
+<li class="add">
+<g:link controller="wineCellar" action="create" params="['cellar.id': cellarInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'wineCellar.label', default: 'WineCellar')])}</g:link>
+</li>
+</ul>
+
+
+</div>
+

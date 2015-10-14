@@ -28,6 +28,7 @@
 			<sec:ifLoggedIn>
 				<g:link controller='logout' action='index'>Se déconnecter</g:link>
 				<g:link controller='member' action='showSimpleAccount'>Mon compte</g:link>
+				<g:link controller='Cellar' action='showCellar'>Ma cave</g:link>
 			</sec:ifLoggedIn>
 		</div>
 
