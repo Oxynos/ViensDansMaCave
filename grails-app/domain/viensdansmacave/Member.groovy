@@ -12,6 +12,9 @@ class Member implements Serializable {
 	Date birthday
 	String country
 	String city
+
+	Cellar cellar
+
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -72,7 +75,7 @@ class Member implements Serializable {
 		}
 		country nullable: true
 		city nullable: true
-
+		cellar nullable: true
 
 	}
 
