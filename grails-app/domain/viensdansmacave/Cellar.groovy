@@ -3,6 +3,8 @@ package viensdansmacave
 class Cellar {
     float rate
 
+    static hasMany = [wines: WineCellar]
+
     static belongsTo = [
             member : Member
     ]

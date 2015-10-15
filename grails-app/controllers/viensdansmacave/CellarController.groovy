@@ -1,13 +1,18 @@
 package viensdansmacave
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(['permitAll'])
 @Transactional(readOnly = true)
+@Secured('permitAll')
 class CellarController {
+
+    SpringSecurityService springSecurityService
+    CellarService cellarService
+    WineService wineService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -22,6 +27,36 @@ class CellarController {
 
     def create() {
         respond new Cellar(params)
+    }
+
+    @Secured('isAuthenticated()')
+    def showCellar() {
+        def member = springSecurityService.currentUser
+        render(view: 'showCellar', model:[member: member])
+    }
+
+    def addWine() {
+        def names = wineService.findWineNames()
+        def years = wineService.findWineYears()
+        render view: "addWine", model: [names: names, years: years]
+    }
+
+    def findWine() {
+        def member = springSecurityService.currentUser
+        def wines = wineService.getWinesByNameAndYear(params.name, params.year as int)
+        render view: "addWine", model: [wines: wines]
+    }
+
+    def addWineInCellar() {
+        def member = springSecurityService.currentUser
+
+        def ret = cellarService.addWineInCellar(params.wine, member.cellar)
+
+        if (!ret.hasErrors()) {
+            render(view: 'addWine',model:[ret: ret.wine])
+        } else {
+            render(view: 'addWine',model:[ret: ret])
+        }
     }
 
     @Transactional
