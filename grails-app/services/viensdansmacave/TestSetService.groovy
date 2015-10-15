@@ -32,5 +32,8 @@ class TestSetService {
         wine2 = new Wine(name:"un autre vin",year:2000,color:WineColor.RED).save()
 
         wineCellar1 = new WineCellar(wine: wine1, cellar: cellar1, quantity:1).save()
+
+        cellar1.addToWineCellars(wineCellar1).save()
+        wine1.addToWineCellars(wineCellar1).save()
     }
 }

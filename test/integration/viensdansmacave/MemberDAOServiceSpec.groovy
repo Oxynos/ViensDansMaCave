@@ -12,7 +12,7 @@ class MemberDAOServiceSpec extends Specification{
 
     void "Test the saveSimpleAccount method correctly persists a Member instance"() {
         given: "A valid member"
-        def member = new Member("toto", "pass")
+        def member = new Member("testSave", "pass")
         member.email = null
         member.birthday = null
         member.city = null
@@ -25,7 +25,7 @@ class MemberDAOServiceSpec extends Specification{
         memberDAOService.saveSimpleAccount(member)
 
         then: "The Member instance is correctly persisted"
-        Member.count() == 1
+        member.id != null
     }
 
     void "Test the deleteSimpleAccount method correctly delete a Member"() {
@@ -37,5 +37,18 @@ class MemberDAOServiceSpec extends Specification{
 
         then: "The Member instance is correctly deleted"
         Member.get(memberId) == null
+    }
+
+    void "Test that when a Member is deleted is cellar is deleted"() {
+        given: "A Member from the test set and his cellar"
+        def member = testSetService.member1
+        def cellar = member.cellar
+
+        when: "The member is deleted"
+        memberDAOService.deleteSimpleAccount(testSetService.member1)
+
+        then: "His cellar is deleted"
+        Cellar.findByMember(member) == null
+        WineCellar.findByCellar(cellar) == null
     }
 }

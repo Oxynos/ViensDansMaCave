@@ -10,6 +10,10 @@ class Wine {
     Integer year
     WineColor color
 
+    static hasMany = [
+            wineCellars : WineCellar
+    ]
+
     static constraints = {
         name blank: false
         year validator: {

@@ -13,12 +13,14 @@ class Member implements Serializable {
 	String country
 	String city
 
-	Cellar cellar
-
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+
+	static hasOne = [
+	        cellar : Cellar
+	]
 
 	Member(String username, String password) {
 		this()
