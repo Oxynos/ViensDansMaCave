@@ -2,9 +2,12 @@ package viensdansmacave
 
 class WineCellar {
 
-    Wine wine
-    Cellar cellar
     Integer quantity
+
+    static belongsTo = [
+            cellar : Cellar,
+            wine : Wine
+    ]
 
     static constraints = {
     }

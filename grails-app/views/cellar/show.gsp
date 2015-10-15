@@ -41,6 +41,17 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${cellarInstance?.wines}">
+				<li class="fieldcontain">
+					<span id="wines-label" class="property-label"><g:message code="cellar.wines.label" default="Wines" /></span>
+					
+						<g:each in="${cellarInstance.wines}" var="w">
+						<span class="property-value" aria-labelledby="wines-label"><g:link controller="wineCellar" action="show" id="${w.id}">${w?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form url="[resource:cellarInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

@@ -9,4 +9,8 @@ class MemberDAOService {
         def simpleAccountSave = member.save(flush:true)
         simpleAccountSave ?: member
     }
+
+    def deleteSimpleAccount(Member member) {
+        member.delete(flush: true)
+    }
 }

@@ -29,4 +29,12 @@ class MemberServiceSpec extends Specification {
         then: "The saveSimpleAccount method of the MemberDAOService is called"
         1 * memberDAOService.saveSimpleAccount(_)
     }
+
+    void "Test the deleteSimpleAccount method calls the MemberDAOService method"() {
+        when : "The deleteSimpleAccount method is called with valid parameters"
+        service.deleteSimpleAccount(Mock(Member))
+
+        then: "The deleteSimpleAccount method of the MemberDAOService is called"
+        1 * memberDAOService.deleteSimpleAccount(_)
+    }
 }
