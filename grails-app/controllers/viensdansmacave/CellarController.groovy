@@ -120,6 +120,8 @@ class CellarController {
 
         Cellar cellar = springSecurityService.currentUser.cellar
         cellarService.removeWineFromCellar(wine, cellar)
+
+        flash.message="Le vin a bien été supprimé."
         redirect action: "showCellar"
     }
 }

@@ -12,7 +12,7 @@ class TestSetService {
 
     Wine wine1, wine2, wine3
 
-    WineCellar wineCellar1
+    WineCellar wineCellar1, wineCellar2
 
     def createTestSet() {
         member1 = new Member('toto', 'mdp')
@@ -36,9 +36,9 @@ class TestSetService {
         cellar1.addToWineCellars(wineCellar1).save()
         wine1.addToWineCellars(wineCellar1).save()
 
-        wineCellar1 = new WineCellar(wine: wine3, cellar: cellar1, quantity:4).save()
+        wineCellar2 = new WineCellar(wine: wine3, cellar: cellar1, quantity:4).save()
 
-        cellar1.addToWineCellars(wineCellar1).save()
-        wine3.addToWineCellars(wineCellar1).save()
+        cellar1.addToWineCellars(wineCellar2).save()
+        wine3.addToWineCellars(wineCellar2).save()
     }
 }

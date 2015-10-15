@@ -60,6 +60,7 @@ crashlytics-build.properties
 
 # default HSQL database files for production mode
 /prodDb.*
+*.db
 
 # general HSQL database files
 *Db.properties

@@ -11,8 +11,9 @@ class WineCellarControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["quantity"] = 1
+        params["wine"] = Mock(Wine)
+        params["cellar"] = Mock(Cellar)
     }
 
     void "Test the index action returns the correct model"() {

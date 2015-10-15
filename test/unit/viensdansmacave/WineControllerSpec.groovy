@@ -3,6 +3,7 @@ package viensdansmacave
 
 import grails.test.mixin.*
 import spock.lang.*
+import wine.WineColor
 
 @TestFor(WineController)
 @Mock(Wine)
@@ -10,8 +11,9 @@ class WineControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["name"] = "un nom"
+        params["year"] = 1990
+        params["color"] = WineColor.RED
     }
 
     void "Test the index action returns the correct model"() {

@@ -149,7 +149,7 @@ class CellarControllerSpec extends Specification {
         flash.message != null
     }
 
-    void "Test that the removeWineFromCellar action calls the service method removeWineFromCellar and redirect to the correct action"() {
+    void "Test that the removeWineFromCellar action calls the service method removeWineFromCellar and the correct action is called"() {
         when: "The removeWineFromCellar action is called with a Wine instance"
         controller.springSecurityService = springSecurityService
         controller.cellarService = cellarService
@@ -160,6 +160,6 @@ class CellarControllerSpec extends Specification {
         1 * cellarService.removeWineFromCellar(_,_)
 
         and: "The showCellar action is called"
-        1 * controller.showCellar()
+        response.redirectedUrl == '/cellar/showCellar'
     }
 }

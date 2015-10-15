@@ -47,7 +47,8 @@
 
                 <td>${fieldValue(bean: wineCellarInstance, field: "quantity")}</td>
 
-                <td><g:link controller="wine" action="show" id="${wineCellarInstance.id}">Accéder au vin</g:link></td>
+                <td><g:link controller="wine" action="show" id="${wineCellarInstance.wine.id}">Accéder au vin</g:link>
+                    <g:link controller="cellar" action="removeWineFromCellar" id="${wineCellarInstance.wine.id}">Supprimer ce vin</g:link> </td>
 
             </tr>
         </g:each>
