@@ -7,7 +7,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
-@Secured('permitAll')
+@Secured('isAuthenticated()')
 class CellarController {
 
     SpringSecurityService springSecurityService
@@ -28,7 +28,6 @@ class CellarController {
         respond new Cellar(params)
     }
 
-    @Secured('isAuthenticated()')
     def showCellar() {
         def member = springSecurityService.currentUser
         render(view: 'showCellar', model:[member: member])

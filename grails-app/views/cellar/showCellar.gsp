@@ -23,15 +23,15 @@
     <table>
         <thead>
         <tr>
-            <g:sortableColumn property="name" title="${message(code: 'wineCellar.wine.name', default: 'Nom')}" />
+            <g:sortableColumn property="name" title="Nom" />
 
-            <g:sortableColumn property="year" title="${message(code: 'wineCellar.wine.year', default: 'Année')}" />
+            <g:sortableColumn property="year" title="Année" />
 
-            <g:sortableColumn property="color" title="${message(code: 'wineCellar.wine.color', default: 'Couleur')}" />
+            <g:sortableColumn property="color" title="Couleur" />
 
-            <g:sortableColumn property="quantity" title="${message(code: 'wineCellar.quantity.label', default: 'Quantité')}" />
+            <g:sortableColumn property="quantity" title="Quantité" />
 
-            <th><g:message code="wineCellar.wine.label" default="Vin" /></th>
+            <th></th>
 
         </tr>
         </thead>
