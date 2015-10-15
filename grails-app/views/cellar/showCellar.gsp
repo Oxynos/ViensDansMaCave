@@ -24,20 +24,20 @@
         <thead>
         <tr>
 
-            <th><g:message code="wineCellar.wine.label" default="Vin" /></th>
+            <g:sortableColumn property="name" title="Nom" />
 
-            <g:sortableColumn property="name" title="${message(code: 'wineCellar.wine.name', default: 'Nom')}" />
+            <g:sortableColumn property="year" title="Année" />
 
-            <g:sortableColumn property="year" title="${message(code: 'wineCellar.wine.year', default: 'Année')}" />
+            <g:sortableColumn property="color" title="Couleur" />
 
-            <g:sortableColumn property="color" title="${message(code: 'wineCellar.wine.color', default: 'Couleur')}" />
+            <g:sortableColumn property="quantity" title="Quantité" />
 
-            <g:sortableColumn property="quantity" title="${message(code: 'wineCellar.quantity.label', default: 'Quantité')}" />
+            <th></th>
 
         </tr>
         </thead>
         <tbody>
-        <g:each in="${member.cellar.wines}" status="i" var="wineCellarInstance">
+        <g:each in="${member.cellar.wineCellars}" status="i" var="wineCellarInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td><g:link controller="wine" action="show" id="${wineCellarInstance.id}">${fieldValue(bean: wineCellarInstance, field: "wine")}</g:link></td>

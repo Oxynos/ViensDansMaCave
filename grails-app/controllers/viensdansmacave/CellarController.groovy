@@ -54,14 +54,18 @@ class CellarController {
     }
 
     def addWineInCellar() {
+
         def member = springSecurityService.currentUser
+        def wine = wineService.find(params.wine as long)
 
-        def ret = cellarService.addWineInCellar(params.wine, member.cellar)
+        def ret = cellarService.addWineInCellar(wine, member.cellar)
 
-        if (!ret.hasErrors()) {
-            render(view: 'addWine',model:[ret: ret.wine])
+        if (ret) {
+            redirect(action: 'showCellar')
+            flash.message = "Vin ajouté !"
         } else {
-            render(view: 'addWine',model:[ret: ret])
+            render(view: 'addWine', model:[ret: ret])
+            flash.message = "Erreur lors de l'ajout !"
         }
     }
     

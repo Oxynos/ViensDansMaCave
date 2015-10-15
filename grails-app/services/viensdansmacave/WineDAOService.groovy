@@ -38,4 +38,8 @@ class WineDAOService {
         }
         res
     }
+
+    def find(long id) {
+        Wine.findById(id)
+    }
 }

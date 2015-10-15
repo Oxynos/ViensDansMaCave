@@ -29,24 +29,27 @@
         </div>
     </fieldset>
 </g:form>
+
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
+
 <g:hasErrors bean="${ret}">
     <div class="erreurBloc">
         <g:renderErrors bean="${ret}" as="list"  />
     </div>
 </g:hasErrors>
 <g:if test="${wines}">
-    <fieldset class="form" url="[action: 'addWineInCellar']">
+    <g:form  url="[action: 'addWineInCellar']">
+    <fieldset class="form">
         <div class="field-inline">
-            <g:select name="wines" from="${wines}" value="${params.wine}"
-                      noSelection="${[null:'Choisir...']}" />
+            <g:select name="wine" from="${wines}" optionKey="id" />
         </div>
         <div class="field-inline">
             <g:actionSubmit action="addWineInCellar" value="Ajouter" />
         </div>
     </fieldset>
+    </g:form>
 </g:if>
 </body>
 </html>

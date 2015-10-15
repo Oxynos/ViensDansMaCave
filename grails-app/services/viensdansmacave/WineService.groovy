@@ -28,4 +28,8 @@ class WineService {
         }
     }
 
+    def find(long id) {
+        wineDAOService.find(id)
+    }
+
 }
