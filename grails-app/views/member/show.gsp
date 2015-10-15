@@ -50,11 +50,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${memberInstance?.age}">
+				<g:if test="${memberInstance?.birthday}">
 				<li class="fieldcontain">
-					<span id="age-label" class="property-label"><g:message code="member.age.label" default="Age" /></span>
+					<span id="birthday-label" class="property-label"><g:message code="member.birthday.label" default="Birthday" /></span>
 					
-						<span class="property-value" aria-labelledby="age-label"><g:fieldValue bean="${memberInstance}" field="age"/></span>
+						<span class="property-value" aria-labelledby="birthday-label"><g:formatDate date="${memberInstance?.birthday}" /></span>
 					
 				</li>
 				</g:if>
@@ -73,6 +73,15 @@
 					<span id="city-label" class="property-label"><g:message code="member.city.label" default="City" /></span>
 					
 						<span class="property-value" aria-labelledby="city-label"><g:fieldValue bean="${memberInstance}" field="city"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${memberInstance?.cellar}">
+				<li class="fieldcontain">
+					<span id="cellar-label" class="property-label"><g:message code="member.cellar.label" default="Cellar" /></span>
+					
+						<span class="property-value" aria-labelledby="cellar-label"><g:link controller="cellar" action="show" id="${memberInstance?.cellar?.id}">${memberInstance?.cellar?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

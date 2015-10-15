@@ -29,12 +29,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: memberInstance, field: 'dateNaissance', 'error')} ">
-	<label for="dateNaissance">
-		<g:message code="member.dateNaissance.label" default="Date Naissance" />
+<div class="fieldcontain ${hasErrors(bean: memberInstance, field: 'birthday', 'error')} ">
+	<label for="birthday">
+		<g:message code="member.birthday.label" default="Birthday" />
 		
 	</label>
-	<g:datePicker name="dateNaissance" precision="day"  value="${memberInstance?.dateNaissance}" default="none" noSelection="['': '']" />
+	<g:datePicker name="birthday" precision="day"  value="${memberInstance?.birthday}" default="none" noSelection="['': '']" />
 
 </div>
 

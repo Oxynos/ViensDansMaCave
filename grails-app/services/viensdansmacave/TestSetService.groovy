@@ -10,8 +10,7 @@ class TestSetService {
 
     Cellar cellar1
 
-    Wine wine1
-    Wine wine2
+    Wine wine1, wine2, wine3
 
     WineCellar wineCellar1
 
@@ -28,9 +27,11 @@ class TestSetService {
 
         cellar1 = new Cellar(rate:0, member:member1).save()
 
-        wine1 = new Wine(name:"un vin",year:2000,color:WineColor.RED).save()
-        wine2 = new Wine(name:"un autre vin",year:2000,color:WineColor.RED).save()
+        wine1 = new Wine(name:"Merlot", year:2013, color:WineColor.RED).save()
+        wine2 = new Wine(name:"Sauternes", year:2008, color:WineColor.WHITE).save()
+        wine3 = new Wine(name:"Côtes de Provence", year:2014, color:WineColor.ROSE).save()
 
         wineCellar1 = new WineCellar(wine: wine1, cellar: cellar1, quantity:1).save()
+        wineCellar1 = new WineCellar(wine: wine3, cellar: cellar1, quantity:4).save()
     }
 }

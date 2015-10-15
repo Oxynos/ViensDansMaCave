@@ -29,9 +29,6 @@
     <table>
         <thead>
         <tr>
-
-            <th><g:message code="wineCellar.wine.label" default="Vin" /></th>
-
             <g:sortableColumn property="name" title="${message(code: 'wineCellar.wine.name', default: 'Nom')}" />
 
             <g:sortableColumn property="year" title="${message(code: 'wineCellar.wine.year', default: 'Année')}" />
@@ -40,13 +37,13 @@
 
             <g:sortableColumn property="quantity" title="${message(code: 'wineCellar.quantity.label', default: 'Quantité')}" />
 
+            <th><g:message code="wineCellar.wine.label" default="Vin" /></th>
+
         </tr>
         </thead>
         <tbody>
         <g:each in="${member.cellar.wines}" status="i" var="wineCellarInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
-                <td><g:link controller="wine" action="show" id="${wineCellarInstance.id}">${fieldValue(bean: wineCellarInstance, field: "wine")}</g:link></td>
 
                 <td>${fieldValue(bean: wineCellarInstance.wine, field: "name")}</td>
 
@@ -55,6 +52,8 @@
                 <td>${fieldValue(bean: wineCellarInstance.wine, field: "color")}</td>
 
                 <td>${fieldValue(bean: wineCellarInstance, field: "quantity")}</td>
+
+                <td><g:link controller="wine" action="show" id="${wineCellarInstance.id}">Accéder au vin</g:link></td>
 
             </tr>
         </g:each>

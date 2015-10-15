@@ -20,7 +20,7 @@
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner">
-			<a class="title" href="${createLink(controller:"home",action: "index")}">Viens dans ma cave</a>
+			<a class="title" href="${createLink(uri: '/')}">Viens dans ma cave</a>
 			<sec:ifNotLoggedIn>
 				<g:link controller='login' action='index'>Se connecter</g:link>
 				<g:link controller='member' action='createSimpleAccount'>Créer un compte</g:link>
