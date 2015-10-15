@@ -10,5 +10,7 @@ class WineCellar {
     ]
 
     static constraints = {
+        quantity min: 1
+        cellar unique: ['wine']
     }
 }

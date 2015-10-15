@@ -22,9 +22,6 @@ class WineSpec extends Specification {
         wine = new Wine()
     }
 
-    def cleanup() {
-    }
-
     void "test a valid wine"() {
         given: "a wine with a name, a year and a color"
         wine.name = testName

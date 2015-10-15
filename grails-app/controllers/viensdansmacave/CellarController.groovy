@@ -12,6 +12,7 @@ class CellarController {
 
     SpringSecurityService springSecurityService
     CellarService cellarService
+    WineService wineService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -28,11 +29,42 @@ class CellarController {
         respond new Cellar(params)
     }
 
+    @Secured('isAuthenticated()')
     def showCellar() {
         def member = springSecurityService.currentUser
         render(view: 'showCellar', model:[member: member])
     }
 
+    def addWine() {
+        def names = wineService.findWineNames()
+        def years = wineService.findWineYears()
+        render view: "addWine", model: [names: names, years: years]
+    }
+
+    def findWine() {
+        def names = wineService.findWineNames()
+        def years = wineService.findWineYears()
+        if (params.name == "")
+            params.name = null
+        def wines = wineService.getWinesByNameAndYear(params.name, params.year as int)
+        if (wines.isEmpty()) {
+            flash.message = 'aucun vin ne correspond a votre recherche'
+        }
+        render view: "addWine", model: [names: names, years: years, wines: wines]
+    }
+
+    def addWineInCellar() {
+        def member = springSecurityService.currentUser
+
+        def ret = cellarService.addWineInCellar(params.wine, member.cellar)
+
+        if (!ret.hasErrors()) {
+            render(view: 'addWine',model:[ret: ret.wine])
+        } else {
+            render(view: 'addWine',model:[ret: ret])
+        }
+    }
+    
     @Transactional
     def save(Cellar cellarInstance) {
         if (cellarInstance == null) {
@@ -121,7 +153,7 @@ class CellarController {
         Cellar cellar = springSecurityService.currentUser.cellar
         cellarService.removeWineFromCellar(wine, cellar)
 
-        flash.message="Le vin a bien Ã©tÃ© supprimÃ©."
+        flash.message="Le vin a bien été supprimé."
         redirect action: "showCellar"
     }
 }

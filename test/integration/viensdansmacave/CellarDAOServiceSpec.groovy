@@ -41,4 +41,19 @@ class CellarDAOServiceSpec extends Specification{
         WineCellar.findByWineAndCellar(testSetService.wine1,testSetService.cellar1) == null
     }
 
+    void "Test adding a wine in a cellar"() {
+        given: "A test set and a wineCellar"
+        testSetService
+        def wineCellar = new WineCellar()
+        wineCellar.wine = testSetService.wine2
+        wineCellar.cellar = testSetService.cellar1
+        wineCellar.quantity = 1
+
+        when: "The addWineInCellar method is called with a wineCellar"
+        cellarDAOService.addWineInCellar(wineCellar)
+
+        then: "There are two wineCellars"
+        WineCellar.count == 2
+    }
+
 }

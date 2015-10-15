@@ -20,6 +20,19 @@ class CellarService {
         }
     }
 
+    def addWineInCellar(Wine wine, Cellar cellar) {
+        def wineCellar = new WineCellar()
+        wineCellar.wine = wine
+        wineCellar.cellar = cellar
+        wineCellar.quantity = 1
+        cellarDAOService.addWineInCellar(wineCellar)
+    }
+
+    def addQuantity(WineCellar wineCellar) {
+        wineCellar.quantity += 1
+        cellarDAOService.addQuantity(wineCellar)
+    }
+
     def insertCellarForMember(Member member) {
         def cellar = new Cellar();
         cellarDAOService.saveCellar(cellar);

@@ -23,8 +23,9 @@ class WineService {
      * @return list of wine or nothing if two params are optionals
      */
     def getWinesByNameAndYear(String name, int year) {
-        if (name || year)
+        if (name || year) {
             wineDAOService.getWinesByNameYear(name, year)
+        }
     }
 
 }

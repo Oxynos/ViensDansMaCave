@@ -44,4 +44,16 @@ class CellarServiceSpec extends Specification {
         ret == false
     }
 
+    void "test adding correctly a wine in a cellar"() {
+        given: "A wine instance and a cellar"
+        Wine wine = Mock(Wine)
+        Cellar cellar = Mock(Cellar)
+
+        when : "The removeWineFromCellar method is called"
+        service.addWineInCellar(wine, cellar)
+
+        then : "The removeWineFromCellar method of the CellarDAOService is called"
+        1 * cellarDAOService.addWineInCellar(_)
+    }
+
 }
