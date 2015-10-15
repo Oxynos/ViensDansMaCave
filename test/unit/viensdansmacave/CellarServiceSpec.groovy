@@ -12,7 +12,7 @@ class CellarServiceSpec extends Specification {
     CellarDAOService cellarDAOService
 
     def setup() {
-        cellarDAOService = Mock(CellarDAOService) {wineIsInCellar(_,_) >> true}
+        cellarDAOService = Mock(CellarDAOService) {wineIsInCellar(_,_) >> Mock(WineCellar)}
         service.cellarDAOService = cellarDAOService
     }
 
@@ -28,7 +28,7 @@ class CellarServiceSpec extends Specification {
         service.removeWineFromCellar(wine, cellar)
 
         then : "The removeWineFromCellar method of the CellarDAOService is called"
-        1 * cellarDAOService.removeWineFromCellar(_,_)
+        1 * cellarDAOService.removeWineFromCellar(_)
     }
 
     void "Test the removeWineFromCellar method return false when the wine isn't in the cellar"() {
@@ -37,7 +37,7 @@ class CellarServiceSpec extends Specification {
         Cellar cellar = Mock(Cellar)
 
         when: "The removeWineFromCellar method is called"
-        service.cellarDAOService = Mock(CellarDAOService) {wineIsInCellar(_,_) >> false}
+        service.cellarDAOService = Mock(CellarDAOService) {wineIsInCellar(_,_) >> null}
         def ret = service.removeWineFromCellar(wine, cellar)
 
         then: "The removeWineFromCellar method return false"

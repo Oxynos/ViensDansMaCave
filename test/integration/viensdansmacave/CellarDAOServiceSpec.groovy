@@ -10,21 +10,21 @@ class CellarDAOServiceSpec extends Specification{
     CellarDAOService cellarDAOService
     TestSetService testSetService
 
-    void "Test the wineIsInCellar method return true if the wine is in the cellar"() {
+    void "Test the wineIsInCellar method return the WineCellar instance if the wine is in the cellar"() {
         given: "A test set"
         testSetService
 
         when: "The wineIsInCellar method is called with a wine in the cellar"
         def ret = cellarDAOService.wineIsInCellar(testSetService.wine1,testSetService.cellar1)
 
-        then: "The wineIsInCellar method returns true"
-        ret == true
+        then: "The wineIsInCellar method returns the WineCellar instance"
+        (ret instanceof WineCellar) == true
 
         when: "The wineIsInCellar method is called with a vine which isn't in the cellar"
         ret = cellarDAOService.wineIsInCellar(testSetService.wine2,testSetService.cellar1)
 
-        then: "The wineIsInCellar method returns false"
-        ret == false
+        then: "The wineIsInCellar method returns null"
+        ret == null
     }
 
     void "Test the removeWineFromCellar method correctly remove a wine from a cellar"() {
@@ -32,7 +32,7 @@ class CellarDAOServiceSpec extends Specification{
         testSetService
 
         when: "The removeWineFromCellar method is called with a wine in a cellar"
-        def ret = cellarDAOService.removeWineFromCellar(testSetService.wine1,testSetService.cellar1)
+        def ret = cellarDAOService.removeWineFromCellar(testSetService.wineCellar1)
 
         then: "The removeWineFromCellar method returns true"
         ret == true

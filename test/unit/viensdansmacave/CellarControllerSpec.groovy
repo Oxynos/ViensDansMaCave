@@ -1,6 +1,6 @@
 package viensdansmacave
 
-
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.test.mixin.*
 import spock.lang.*
 
@@ -8,9 +8,11 @@ import spock.lang.*
 @Mock(Cellar)
 class CellarControllerSpec extends Specification {
 
+    SpringSecurityService springSecurityService = Mock(SpringSecurityService) {getCurrentUser() >> Mock(Member)}
+    CellarService cellarService = Mock(CellarService)
+
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
         params["rate"] = 0.0
         params["member"] = Mock(Member)
     }
@@ -145,5 +147,19 @@ class CellarControllerSpec extends Specification {
         Cellar.count() == 0
         response.redirectedUrl == '/cellar/index'
         flash.message != null
+    }
+
+    void "Test that the removeWineFromCellar action calls the service method removeWineFromCellar and redirect to the correct action"() {
+        when: "The removeWineFromCellar action is called with a Wine instance"
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+        Wine wine = Mock(Wine)
+        controller.removeWineFromCellar(wine)
+
+        then: "The removeWineFromCellar service method is called"
+        1 * cellarService.removeWineFromCellar(_,_)
+
+        and: "The showCellar action is called"
+        1 * controller.showCellar()
     }
 }

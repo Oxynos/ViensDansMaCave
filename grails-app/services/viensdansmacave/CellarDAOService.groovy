@@ -11,12 +11,10 @@ class CellarDAOService {
     }
 
     def wineIsInCellar(Wine wine, Cellar cellar) {
-        def wineCellar = WineCellar.findByWineAndCellar(wine, cellar)
-        wineCellar ? true : false
+        WineCellar.findByWineAndCellar(wine, cellar)
     }
 
-    def removeWineFromCellar(Wine wine, Cellar cellar) {
-        def wineCellar = WineCellar.findByWineAndCellar(wine, cellar)
+    def removeWineFromCellar(WineCellar wineCellar) {
         try {
             wineCellar?.delete(flush: true)
             return true

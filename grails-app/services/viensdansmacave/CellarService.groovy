@@ -12,8 +12,9 @@ class CellarService {
     }
 
     def removeWineFromCellar(Wine wine, Cellar cellar) {
-        if (wineIsInCellar(wine, cellar)) {
-            cellarDAOService.removeWineFromCellar(wine, cellar)
+        WineCellar wineCellar = wineIsInCellar(wine, cellar)
+        if (wineCellar != null) {
+            cellarDAOService.removeWineFromCellar(wineCellar)
         } else {
             false
         }

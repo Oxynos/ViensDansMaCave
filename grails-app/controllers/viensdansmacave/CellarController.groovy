@@ -114,8 +114,7 @@ class CellarController {
         }
 
         Cellar cellar = springSecurityService.currentUser.cellar
-        if (cellarService.removeWineFromCellar(wine, cellar)) {
-            redirect action: "showCellar"
-        }
+        cellarService.removeWineFromCellar(wine, cellar)
+        redirect action: "showCellar"
     }
 }
