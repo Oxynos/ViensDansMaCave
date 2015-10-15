@@ -25,7 +25,8 @@ class WineDAOService {
     }
 
     def getWinesByNameYear(String name, int year) {
-        def wines = Wine.withCriteria {
+        def criteria = Wine.createCriteria()
+        def res = criteria.list {
             if (name) {
                 like 'name', "%${name}%"
             }
@@ -35,6 +36,6 @@ class WineDAOService {
                 }
             }
         }
-        wines
+        res
     }
 }

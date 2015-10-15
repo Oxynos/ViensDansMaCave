@@ -42,8 +42,15 @@ class CellarController {
     }
 
     def findWine() {
+        def names = wineService.findWineNames()
+        def years = wineService.findWineYears()
+        if (params.name == "")
+            params.name = null
         def wines = wineService.getWinesByNameAndYear(params.name, params.year as int)
-        render view: "addWine", model: [wines: wines]
+        if (wines.isEmpty()) {
+            flash.message = 'aucun vin ne correspond a votre recherche'
+        }
+        render view: "addWine", model: [names: names, years: years, wines: wines]
     }
 
     def addWineInCellar() {

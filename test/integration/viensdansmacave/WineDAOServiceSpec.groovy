@@ -44,15 +44,15 @@ class WineDAOServiceSpec extends Specification {
         res.size() == 1
 
         when: "the method is called with year"
-        res = wineDAOService.getWinesByNameYear(null, 2000)
+        def res2 = wineDAOService.getWinesByNameYear(null, 2000)
 
         then: "return the good wine"
-        res.size() == 2
+        res2.size() == 2
 
         when: "the method is called with year"
-        res = wineDAOService.getWinesByNameYear("vin", 0)
+        def res3 = wineDAOService.getWinesByNameYear("vin", 0)
 
         then: "return the good wine"
-        res.size() == 2
+        res3.size() == 2
     }
 }

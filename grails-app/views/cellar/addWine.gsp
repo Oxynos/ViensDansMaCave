@@ -17,7 +17,7 @@
         <div class="field-inline">
             <label for="name">Nom du vin</label>
             <g:select name="name" from="${names}" value="${params.name}"
-                      noSelection="${['null':'Choisir...']}" />
+                      noSelection="${["":'Choisir...']}" />
         </div>
         <div class="field-inline">
             <label for="year">Année</label>
@@ -29,6 +29,9 @@
         </div>
     </fieldset>
 </g:form>
+<g:if test="${flash.message}">
+    <div class="message" role="status">${flash.message}</div>
+</g:if>
 <g:hasErrors bean="${ret}">
     <div class="erreurBloc">
         <g:renderErrors bean="${ret}" as="list"  />
