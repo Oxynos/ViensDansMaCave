@@ -11,8 +11,4 @@ class WineCellar {
 
     static constraints = {
     }
-
-    static belongsTo = [
-            cellar : Cellar
-    ]
 }

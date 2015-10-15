@@ -36,7 +36,7 @@
         </tr>
         </thead>
         <tbody>
-        <g:each in="${member.cellar.wines}" status="i" var="wineCellarInstance">
+        <g:each in="${member.cellar.wineCellars}" status="i" var="wineCellarInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td>${fieldValue(bean: wineCellarInstance.wine, field: "name")}</td>
