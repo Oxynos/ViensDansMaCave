@@ -42,7 +42,6 @@ class CellarController {
     }
 
     def findWine() {
-        def member = springSecurityService.currentUser
         def wines = wineService.getWinesByNameAndYear(params.name, params.year as int)
         render view: "addWine", model: [wines: wines]
     }
