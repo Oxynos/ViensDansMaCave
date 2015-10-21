@@ -53,7 +53,7 @@ class CellarDAOServiceSpec extends Specification{
         cellarDAOService.addWineInCellar(wineCellar)
 
         then: "There are two wineCellars"
-        WineCellar.count == 2
+        WineCellar.count == 3
     }
 
 }
