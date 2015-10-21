@@ -76,6 +76,15 @@ class CellarControllerSpec extends Specification {
         model.cellarInstance == cellar
     }
 
+    void "Test that the showCellar action renders the correct view"() {
+        when: "The showCellar is called"
+        controller.springSecurityService = springSecurityService
+        controller.showCellar()
+
+        then: "The showCellar view is rendered"
+        view == '/cellar/showCellar'
+    }
+
     void "Test that the edit action returns the correct model"() {
         when: "The edit action is executed with a null domain"
         controller.edit(null)
