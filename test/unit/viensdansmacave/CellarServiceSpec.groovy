@@ -44,4 +44,15 @@ class CellarServiceSpec extends Specification {
         ret == false
     }
 
+    void "Test the insertCellarForMember method"() {
+        given : "A member instance and a cellar instance"
+        Member member = new Member("test", "test")
+
+        when : "The insertCellarForMember method is called"
+        service.insertCellarForMember(member)
+
+        then : "member.cellar is initialized"
+        member.cellar instanceof Cellar
+    }
+
 }
