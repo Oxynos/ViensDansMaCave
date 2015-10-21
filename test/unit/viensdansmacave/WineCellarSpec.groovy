@@ -36,6 +36,8 @@ class WineCellarSpec extends Specification {
         wineCellar.cellar = testCellar
         wineCellar.wine = testWine
         wineCellar.quantity = testQuantity
+        Wine wineDuplicate = Mock(Wine)
+        Cellar cellarDuplicate = Mock(Cellar)
 
         expect: "an invalid wineCellar"
         wineCellar.validate() == false

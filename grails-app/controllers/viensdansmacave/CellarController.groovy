@@ -48,7 +48,7 @@ class CellarController {
             params.name = null
         def wines = wineService.getWinesByNameAndYear(params.name, params.year as int)
         if (wines.isEmpty()) {
-            flash.message = 'aucun vin ne correspond a votre recherche'
+            flash.message = 'Aucun vin ne correspond Ã  votre recherche'
         }
         render view: "addWine", model: [names: names, years: years, wines: wines]
     }
@@ -60,9 +60,9 @@ class CellarController {
 
         def ret = cellarService.addWineInCellar(wine, member.cellar)
 
-        if (ret) {
+        if (!ret.hasErrors()) {
             redirect(action: 'showCellar')
-            flash.message = "Vin ajouté !"
+            flash.message = "Vin ajoutÃ© !"
         } else {
             render(view: 'addWine', model:[ret: ret])
             flash.message = "Erreur lors de l'ajout !"
@@ -157,7 +157,7 @@ class CellarController {
         Cellar cellar = springSecurityService.currentUser.cellar
         cellarService.removeWineFromCellar(wine, cellar)
 
-        flash.message="Le vin a bien été supprimé."
+        flash.message="Le vin a bien Ã©tÃ© supprimÃ©."
         redirect action: "showCellar"
     }
 }

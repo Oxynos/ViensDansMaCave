@@ -14,17 +14,17 @@
 </div>
 <g:form url="[action: 'findWine']">
     <fieldset class="form">
-        <div class="field-inline">
+        <div class="fieldcontain">
             <label for="name">Nom du vin</label>
             <g:select name="name" from="${names}" value="${params.name}"
                       noSelection="${["":'Choisir...']}" />
         </div>
-        <div class="field-inline">
+        <div class="fieldcontain">
             <label for="year">Année</label>
             <g:select name="year" from="${years}" value="${params.year}"
                       noSelection="${['0':'Choisir...']}" />
         </div>
-        <div class="field-inline">
+        <div class="fieldcontain">
             <g:actionSubmit action="findWine" value="Rechercher" />
         </div>
     </fieldset>
@@ -42,10 +42,10 @@
 <g:if test="${wines}">
     <g:form  url="[action: 'addWineInCellar']">
     <fieldset class="form">
-        <div class="field-inline">
+        <div class="fieldcontain">
             <g:select name="wine" from="${wines}" optionKey="id" />
         </div>
-        <div class="field-inline">
+        <div class="fieldcontain">
             <g:actionSubmit action="addWineInCellar" value="Ajouter" />
         </div>
     </fieldset>

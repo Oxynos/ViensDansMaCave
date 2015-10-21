@@ -40,8 +40,6 @@
         <g:each in="${member.cellar.wineCellars}" status="i" var="wineCellarInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td><g:link controller="wine" action="show" id="${wineCellarInstance.id}">${fieldValue(bean: wineCellarInstance, field: "wine")}</g:link></td>
-
                 <td>${fieldValue(bean: wineCellarInstance.wine, field: "name")}</td>
 
                 <td>${fieldValue(bean: wineCellarInstance.wine, field: "year")}</td>
