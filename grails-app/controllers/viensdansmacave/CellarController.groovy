@@ -64,7 +64,9 @@ class CellarController {
             redirect(action: 'showCellar')
             flash.message = "Vin ajouté !"
         } else {
-            render(view: 'addWine', model:[ret: ret])
+            def names = wineService.findWineNames()
+            def years = wineService.findWineYears()
+            render (view: 'addWine', model:[ret: ret, names: names, years: years])
             flash.message = "Erreur lors de l'ajout !"
         }
     }
