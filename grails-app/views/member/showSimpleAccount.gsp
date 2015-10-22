@@ -40,6 +40,7 @@
 
         <g:form url="[resource:member, action:'deleteSimpleAccount']" method="DELETE">
             <fieldset class="buttons">
+                <g:link class="edit" action="editSimpleAccount" resource="${member}">Modifier mes informations</g:link>
                 <g:actionSubmit class="delete" action="deleteSimpleAccount" value="Supprimer mon compte" onclick="return confirm('Etes-vous sûr de vouloir supprimer votre compte ?');" />
             </fieldset>
         </g:form>

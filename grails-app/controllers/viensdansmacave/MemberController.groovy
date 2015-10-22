@@ -8,6 +8,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
+@Secured('permitAll')
 class MemberController {
 
     MemberService memberService
@@ -80,6 +81,13 @@ class MemberController {
 
     def edit(Member memberInstance) {
         respond memberInstance
+    }
+
+    @Secured('isAuthenticated()')
+    def editSimpleAccount() {
+        def member = springSecurityService.currentUser
+
+        render(view: 'editSimpleAccount', model:[member: member])
     }
 
     @Transactional
