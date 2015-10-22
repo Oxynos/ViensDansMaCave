@@ -30,7 +30,8 @@
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:actionSubmit action="save" name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:actionSubmit action="saveAndAddInCellar" name="createAndAddInCellar" class="save" value="Créer et ajouter à ma cave" />
 				</fieldset>
 			</g:form>
 		</div>

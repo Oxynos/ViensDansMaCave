@@ -27,6 +27,7 @@
         <div class="fieldcontain">
             <g:actionSubmit action="findWine" value="Rechercher" />
         </div>
+        <p>Votre vin n'est pas présent ? <g:link controller="wine" action="create">Créez le !</g:link></p>
     </fieldset>
 </g:form>
 

@@ -42,4 +42,9 @@ class WineDAOService {
     def find(long id) {
         Wine.findById(id)
     }
+
+    def save(Wine wine) {
+        def wineSave = wine.save(flush:true)
+        wineSave ?: wine
+    }
 }

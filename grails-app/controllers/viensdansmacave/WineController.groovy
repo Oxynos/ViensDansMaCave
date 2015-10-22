@@ -1,5 +1,6 @@
 package viensdansmacave
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
@@ -8,6 +9,9 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 @Secured("isAuthenticated()")
 class WineController {
+
+    CellarService cellarService
+    WineService wineService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -44,6 +48,14 @@ class WineController {
                 redirect wineInstance
             }
             '*' { respond wineInstance, [status: CREATED] }
+        }
+    }
+
+    def saveAndAddInCellar(Wine wineInstance) {
+        if (!wineService.save(wineInstance).hasErrors()) {
+            redirect (controller: "cellar", action: "addWineInCellar", params: [wine: wineInstance.id])
+        } else {
+            respond wineInstance.errors, view: 'create'
         }
     }
 

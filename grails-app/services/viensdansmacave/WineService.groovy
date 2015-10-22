@@ -32,4 +32,8 @@ class WineService {
         wineDAOService.find(id)
     }
 
+    def save(Wine wine) {
+        wineDAOService.save(wine);
+    }
+
 }
