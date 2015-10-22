@@ -28,14 +28,6 @@ class CellarDAOService {
         assoc ?: wineCellar
     }
 
-    def addQuantity(WineCellar wineCellar) {
-        def res
-        if (wineCellar) {
-            res = addWineInCellar(wineCellar)
-        }
-        res
-    }
-
     def wineRanking() {
         WineCellar.createCriteria().list(){
             projections {

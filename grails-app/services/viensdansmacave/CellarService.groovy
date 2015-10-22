@@ -20,17 +20,12 @@ class CellarService {
         }
     }
 
-    def addWineInCellar(Wine wine, Cellar cellar) {
+    def addWineInCellar(Wine wine, Cellar cellar, int quantity) {
         def wineCellar = new WineCellar()
         wineCellar.wine = wine
         wineCellar.cellar = cellar
-        wineCellar.quantity = 1
+        wineCellar.quantity = quantity
         cellarDAOService.addWineInCellar(wineCellar)
-    }
-
-    def addQuantity(WineCellar wineCellar) {
-        wineCellar.quantity += 1
-        cellarDAOService.addQuantity(wineCellar)
     }
 
     def insertCellarForMember(Member member) {
@@ -41,5 +36,19 @@ class CellarService {
 
     def wineRanking() {
         cellarDAOService.wineRanking()
+    }
+
+    def increaseQuantity(WineCellar wineCellar) {
+        wineCellar.quantity++
+        cellarDAOService.addWineInCellar(wineCellar)
+    }
+
+    def reduceQuantity(WineCellar wineCellar) {
+        if (wineCellar.quantity > 1) {
+            wineCellar.quantity--
+            cellarDAOService.addWineInCellar(wineCellar)
+        } else {
+            cellarDAOService.removeWineFromCellar(wineCellar)
+        }
     }
 }

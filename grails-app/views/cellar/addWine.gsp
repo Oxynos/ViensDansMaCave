@@ -47,6 +47,10 @@
             <g:select name="wine" from="${wines}" optionKey="id" />
         </div>
         <div class="fieldcontain">
+            <label for="quantity">Quantité : </label>
+            <g:field type="number" min="1" required="" name="quantity" value="1" optionKey="id" />
+        </div>
+        <div class="fieldcontain">
             <g:actionSubmit action="addWineInCellar" value="Ajouter" />
         </div>
     </fieldset>

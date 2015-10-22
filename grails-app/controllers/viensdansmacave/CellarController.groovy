@@ -57,8 +57,9 @@ class CellarController {
 
         def member = springSecurityService.currentUser
         def wine = wineService.find(params.wine as long)
+        def quantity = params.quantity as int
 
-        def ret = cellarService.addWineInCellar(wine, member.cellar)
+        def ret = cellarService.addWineInCellar(wine, member.cellar, quantity)
 
         if (!ret.hasErrors()) {
             redirect(action: 'showCellar')
@@ -161,5 +162,25 @@ class CellarController {
 
         flash.message="Le vin a bien été supprimé."
         redirect action: "showCellar"
+    }
+
+    def reduceQuantity(WineCellar wineCellar) {
+        if (wineCellar == null) {
+            notFound()
+            return
+        }
+
+        cellarService.reduceQuantity(wineCellar)
+        redirect action:"showCellar"
+    }
+
+    def increaseQuantity(WineCellar wineCellar) {
+        if (wineCellar == null) {
+            notFound()
+            return
+        }
+
+        cellarService.increaseQuantity(wineCellar)
+        redirect action:"showCellar"
     }
 }

@@ -158,7 +158,7 @@ class WineControllerSpec extends Specification {
         controller.saveAndAddInCellar(wine)
 
         then: "The addWineInCellar action of the Cellar controller is called"
-        response.redirectedUrl == '/cellar/addWineInCellar?wine='
+        response.redirectedUrl == '/cellar/addWineInCellar?wine=&quantity=1'
 
         when: "The saveAndAddInCellar action is called with an incorrect Wine instance"
         controller.wineService = wineServiceErr

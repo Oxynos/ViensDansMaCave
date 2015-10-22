@@ -46,7 +46,7 @@
 
                 <td>${fieldValue(bean: wineCellarInstance.wine, field: "color")}</td>
 
-                <td>${fieldValue(bean: wineCellarInstance, field: "quantity")}</td>
+                <td><g:link action="reduceQuantity" id="${wineCellarInstance.id}">-</g:link>${fieldValue(bean: wineCellarInstance, field: "quantity")}<g:link action="increaseQuantity" id="${wineCellarInstance.id}">+</g:link></td>
 
                 <td><g:link controller="wine" action="show" id="${wineCellarInstance.wine.id}">Accéder au vin</g:link>
                     <g:link controller="cellar" action="removeWineFromCellar" id="${wineCellarInstance.wine.id}">Supprimer ce vin</g:link> </td>

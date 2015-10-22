@@ -171,4 +171,24 @@ class CellarControllerSpec extends Specification {
         and: "The showCellar action is called"
         response.redirectedUrl == '/cellar/showCellar'
     }
+
+    void "Test that the increaseQuantity action calls the service method increaseQuantity"() {
+        when: "The increaseQuantity action is called with a WineCellar instance"
+        controller.cellarService = cellarService
+        WineCellar wineCellar = Mock(WineCellar)
+        controller.increaseQuantity(wineCellar)
+
+        then: "The increaseQuantity method of the service is called"
+        1 * cellarService.increaseQuantity(_)
+    }
+
+    void "Test that the reduceQuantity action calls the service method reduceQuantity"() {
+        when: "The reduceQuantity action is called with a WineCellar instance"
+        controller.cellarService = cellarService
+        WineCellar wineCellar = Mock(WineCellar)
+        controller.reduceQuantity(wineCellar)
+
+        then: "The increaseQuantity method of the service is called"
+        1 * cellarService.reduceQuantity(_)
+    }
 }

@@ -50,7 +50,7 @@ class CellarServiceSpec extends Specification {
         Cellar cellar = Mock(Cellar)
 
         when : "The removeWineFromCellar method is called"
-        service.addWineInCellar(wine, cellar)
+        service.addWineInCellar(wine, cellar, 1)
 
         then : "The removeWineFromCellar method of the CellarDAOService is called"
         1 * cellarDAOService.addWineInCellar(_)
@@ -68,11 +68,40 @@ class CellarServiceSpec extends Specification {
     }
 
     void "Test that the wineRanking method calls the DAO method"() {
-        when : "The wineRanking method is called"
+        when: "The wineRanking method is called"
         service.wineRanking()
 
-        then : "The DAO method is called"
+        then: "The DAO method is called"
         1 * cellarDAOService.wineRanking()
+    }
+
+    void "Test that the increaseQuantity method calls the DAO method"() {
+        given: "A WineCellar instance"
+        WineCellar wineCellar = new WineCellar(wine: Mock(Wine), cellar: Mock(Cellar), quantity:1)
+
+        when: "The increaseQuantity method is called"
+        service.increaseQuantity(wineCellar)
+
+        then: "The DAO method is called"
+        1 * cellarDAOService.addWineInCellar(_)
+    }
+
+    void "Test that the reduceQuantity method calls the correct DAO method"() {
+        given: "A WineCellar instance"
+        WineCellar wineCellar = new WineCellar(wine: Mock(Wine), cellar: Mock(Cellar), quantity:1)
+
+        when: "The reduceQuantity method is called with quantity set to 1"
+        service.reduceQuantity(wineCellar)
+
+        then: "The correct DAO method is called"
+        1 * cellarDAOService.removeWineFromCellar(_)
+
+        when: "The reduceQuantity method is called with quantity set to more than 1"
+        wineCellar.quantity = 2
+        service.reduceQuantity(wineCellar)
+
+        then: "The correct DAO method is called"
+        1 * cellarDAOService.addWineInCellar(_)
     }
 
 }
