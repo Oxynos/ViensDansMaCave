@@ -10,7 +10,6 @@ import grails.transaction.Transactional
 @Secured("isAuthenticated()")
 class WineController {
 
-    CellarService cellarService
     WineService wineService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -55,7 +54,7 @@ class WineController {
         if (!wineService.save(wineInstance).hasErrors()) {
             redirect (controller: "cellar", action: "addWineInCellar", params: [wine: wineInstance.id])
         } else {
-            respond wineInstance.errors, view: 'create'
+            render (view: 'create', model:[wineInstance: wineInstance])
         }
     }
 

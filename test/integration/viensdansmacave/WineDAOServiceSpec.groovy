@@ -2,6 +2,7 @@ package viensdansmacave
 
 
 import spock.lang.*
+import wine.WineColor
 
 /**
  *
@@ -55,4 +56,16 @@ class WineDAOServiceSpec extends Specification {
         then: "return the good wine"
         res3.size() == 2
     }
+
+    void "Test the save method correctly persists a Wine instance"() {
+        given: "A valid Wine instance"
+        Wine wine = new Wine(name:"testVin", year:2013, color:WineColor.RED)
+
+        when: "The save method is called"
+        wineDAOService.save(wine)
+
+        then: "The Wine instance is correctly persisted"
+        Wine.count == 4
+    }
+
 }

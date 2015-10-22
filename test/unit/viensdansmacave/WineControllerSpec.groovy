@@ -9,6 +9,9 @@ import wine.WineColor
 @Mock(Wine)
 class WineControllerSpec extends Specification {
 
+    WineService wineService = Mock(WineService) {save(_) >> Mock(Wine)}
+    WineService wineServiceErr = Mock(WineService) {save(_) >> Mock(Wine) {hasErrors() >> true}}
+
     def populateValidParams(params) {
         assert params != null
         params["name"] = "un nom"
@@ -146,5 +149,22 @@ class WineControllerSpec extends Specification {
         Wine.count() == 0
         response.redirectedUrl == '/wine/index'
         flash.message != null
+    }
+
+    void "Test that the saveAndAddInCellar action redirects to the correct action"() {
+        when: "The saveAndAddInCellar action is called with a correct Wine instance"
+        controller.wineService = wineService
+        Wine wine = Mock(Wine)
+        controller.saveAndAddInCellar(wine)
+
+        then: "The addWineInCellar action of the Cellar controller is called"
+        response.redirectedUrl == '/cellar/addWineInCellar?wine='
+
+        when: "The saveAndAddInCellar action is called with an incorrect Wine instance"
+        controller.wineService = wineServiceErr
+        controller.saveAndAddInCellar(Mock(Wine))
+
+        then: "The create view is rendered again"
+        view == "/wine/create"
     }
 }

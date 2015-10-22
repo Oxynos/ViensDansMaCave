@@ -52,4 +52,13 @@ class WineServiceSpec extends Specification {
         then: "the service use the good DAO method with correct parameters"
         0 * wineDAOService.getWinesByNameYear(_, _)
     }
+
+    void "Test the save method calls the WineDAOService method"() {
+        when: "The save method is called"
+        service.save(Mock(Wine))
+
+        then: "The save method of WineDAOService is called"
+        1 * wineDAOService.save(_)
+    }
+
 }
