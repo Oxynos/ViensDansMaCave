@@ -44,5 +44,6 @@
     </tr>
   </g:each>
   </tbody>
+  </table>
 </body>
 </html>
