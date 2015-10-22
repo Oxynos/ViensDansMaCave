@@ -35,4 +35,14 @@ class CellarDAOService {
         }
         res
     }
+
+    def wineRanking() {
+        WineCellar.createCriteria().list(){
+            projections {
+                groupProperty("wine")
+                count("wine", 'myCount')
+            }
+            order('myCount','desc')
+        }
+    }
 }

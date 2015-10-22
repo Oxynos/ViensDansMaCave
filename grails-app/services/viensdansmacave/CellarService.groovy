@@ -38,4 +38,8 @@ class CellarService {
         cellarDAOService.saveCellar(cellar);
         member.cellar = cellar
     }
+
+    def wineRanking() {
+        cellarDAOService.wineRanking()
+    }
 }

@@ -56,4 +56,16 @@ class CellarDAOServiceSpec extends Specification{
         WineCellar.count == 3
     }
 
+    void "Test that the wineRanking method returns the list of Wines with their ranking"() {
+        given: "A test set"
+        testSetService
+
+        when: "The wineRanking method is called"
+        def ret = cellarDAOService.wineRanking()
+
+        then: "A list of wines with their ranking is returned"
+        ret.size() == 2
+        ret[0][1] == 1
+    }
+
 }

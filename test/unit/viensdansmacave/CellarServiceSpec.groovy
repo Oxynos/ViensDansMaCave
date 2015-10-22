@@ -67,4 +67,12 @@ class CellarServiceSpec extends Specification {
         member.cellar instanceof Cellar
     }
 
+    void "Test that the wineRanking method calls the DAO method"() {
+        when : "The wineRanking method is called"
+        service.wineRanking()
+
+        then : "The DAO method is called"
+        1 * cellarDAOService.wineRanking()
+    }
+
 }
