@@ -18,7 +18,7 @@ class CellarController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Cellar.list(params), model:[cellarInstanceCount: Cellar.count()]
+        respond Member.list(params), model: [memberInstanceCount: Member.count(), currentMember: member]
     }
 
     def show(Cellar cellarInstance) {
@@ -29,10 +29,12 @@ class CellarController {
         respond new Cellar(params)
     }
 
-    @Secured('isAuthenticated()')
-    def showCellar() {
-        def member = springSecurityService.currentUser
-        render(view: 'showCellar', model:[member: member])
+    def showCellar(Member member) {
+        if (member == null) member = springSecurityService.currentUser
+        def currentMember = springSecurityService.currentUser
+        def isMe = false
+        if (currentMember == member) isMe = true
+        render(view: 'showCellar', model:[member: member, isMe: isMe])
     }
 
     def addWine() {
