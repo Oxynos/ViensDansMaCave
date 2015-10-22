@@ -54,9 +54,9 @@
 
                     <g:if test="${isMe}">
                         <fieldset class="buttons" style="display: inline; margin: 0 0.1em; padding: 0.1em 0.1em;">
-                            <g:actionSubmit class="delete" controller="cellar" action="removeWineFromCellar" id="${wineCellarInstance.wine.id}"
+                            <g:link class="delete" controller="cellar" action="removeWineFromCellar" id="${wineCellarInstance.wine.id}"
                                         value="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce vin de votre cave ?');"
-                            style="margin: 0; padding: 0 0.7em"/>
+                            style="margin: 0; padding: 0 0.7em">Supprimer</g:link>
                         </fieldset>
                     </g:if>
 
