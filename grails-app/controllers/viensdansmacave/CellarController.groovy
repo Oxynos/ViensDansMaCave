@@ -18,7 +18,8 @@ class CellarController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Member.list(params), model: [memberInstanceCount: Member.count(), currentMember: member]
+        def currentMember = springSecurityService.currentUser
+        respond Member.list(params), model: [memberInstanceCount: Member.count(), currentMember: currentMember]
     }
 
     def show(Cellar cellarInstance) {
