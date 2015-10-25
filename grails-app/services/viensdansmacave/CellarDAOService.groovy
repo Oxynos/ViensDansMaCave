@@ -35,4 +35,23 @@ class CellarDAOService {
         }
         res
     }
+
+    def computeRateForCellar(Cellar cellar) {
+        def query = MemberCellarRate.where {
+            eq 'cellar', cellar
+        }.projections {
+            avg 'rate'
+        }
+        def rate = query.find() as float
+        rate
+    }
+
+    def addMemberRating(MemberCellarRate rating) {
+        def rate = rating.save(flush: true)
+        rate ?: rating
+    }
+
+    def getRateByUserAndCellar(Cellar cellar, Member member) {
+        MemberCellarRate.findByMemberAndCellar(member, cellar)
+    }
 }

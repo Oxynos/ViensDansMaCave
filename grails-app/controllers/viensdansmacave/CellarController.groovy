@@ -70,7 +70,16 @@ class CellarController {
             flash.message = "Erreur lors de l'ajout !"
         }
     }
-    
+
+    def rateCellar(Cellar cellar) {
+        def member = springSecurityService.currentUser
+        def res = cellarService.addRateForCellar(cellar, member, params.rate as float)
+    }
+
+    def addRate(Cellar cellar) {
+
+    }
+
     @Transactional
     def save(Cellar cellarInstance) {
         if (cellarInstance == null) {

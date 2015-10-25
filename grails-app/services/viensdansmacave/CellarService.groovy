@@ -38,4 +38,25 @@ class CellarService {
         cellarDAOService.saveCellar(cellar);
         member.cellar = cellar
     }
+
+    def updateRate(Cellar cellar) {
+        def rate = cellarDAOService.computeRateForCellar(cellar)
+        cellar.rate = rate as float
+        cellarDAOService.saveCellar(cellar)
+    }
+
+    def addRateForCellar(Cellar cellar, Member member, float rate) {
+        def memberRate = new MemberCellarRate()
+        memberRate.cellar = cellar
+        memberRate.member = member
+        memberRate.rate = rate
+        def memberCellarRate = cellarDAOService.addMemberRating(memberRate)
+        if (!memberCellarRate.hasErrors())
+            updateRate(cellar)
+        memberCellarRate
+    }
+
+    def getRateByUserAndCellar(Cellar cellar, Member member) {
+        cellarDAOService.getRateByUserAndCellar(cellar, member)
+    }
 }

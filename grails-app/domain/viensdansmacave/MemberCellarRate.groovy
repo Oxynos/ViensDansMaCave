@@ -1,18 +1,16 @@
 package viensdansmacave
 
-class Cellar {
+class MemberCellarRate {
+
     float rate
 
     static belongsTo = [
+            cellar : Cellar,
             member : Member
     ]
 
-    static hasMany = [
-            wineCellars : WineCellar,
-            memberRating : MemberCellarRate
-    ]
-
     static constraints = {
+        cellar unique: ['member']
         rate max: 5.toFloat(), min: 0.toFloat(), nullable: true
     }
 }
