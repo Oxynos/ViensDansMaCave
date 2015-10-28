@@ -6,6 +6,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.Calendar"%>
 <html>
 <head>
     <meta name="layout" content="main">
@@ -15,26 +16,38 @@
 <body>
     <div class="content">
         <h1>Informations du compte</h1>
-        <g:form url="[resource:member, action:'update']" method="PUT" >
+        <g:hasErrors bean="${member}">
+            <ul class="errors" role="alert">
+                <g:eachError bean="${member}" var="error">
+                    <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                </g:eachError>
+            </ul>
+        </g:hasErrors>
+        <g:form url="[resource:member, action:'update']" method="POST" >
             <fieldset class="form">
-                <label>Nom d'utilisateur *</label>
-                <g:field type="text" name="username" required="true" value="${member?.username}"></g:field>
-                <br/>
-                <label>Email</label>
-                <g:field type="text" name="email" value="${member?.email}"></g:field>
-                <br/>
-                <label>Date de naissance</label>
-                <g:datePicker precision="day" name="birthday" value="${member?.birthday}"></g:datePicker>
-                <br/>
-                <label>Pays</label>
-                <g:field type="text" name="country" value="${member?.country}"></g:field>
-                <br/>
-                <label>Ville</label>
-                <g:field type="text" name="city" value="${member?.city}"></g:field>
-                <br/>
+                <div class="${hasErrors(bean:member,field:'username', 'error')}">
+                    <label>Nom d'utilisateur *</label>
+                    <g:field type="text" name="username" required="true" value="${member?.username}"></g:field>
+                </div>
+                <div class="${hasErrors(bean:member,field:'email', 'error')}">
+                    <label>Email</label>
+                    <g:field type="text" name="email" value="${member?.email}"></g:field>
+                </div>
+                <div class="${hasErrors(bean:member,field:'birthday', 'error')}">
+                    <label>Date de naissance</label>
+                    <g:datePicker precision="day" name="birthday" value="${member?.birthday}" default="none" noSelection="['':'']" years="${Calendar.instance.get(Calendar.YEAR)-18..Calendar.instance.get(Calendar.YEAR)-200}"></g:datePicker>
+                </div>
+                <div class="${hasErrors(bean:member,field:'country', 'error')}">
+                    <label>Pays</label>
+                    <g:field type="text" name="country" value="${member?.country}"></g:field>
+                </div>
+                <div class="${hasErrors(bean:member,field:'city', 'error')}">
+                    <label>Ville</label>
+                    <g:field type="text" name="city" value="${member?.city}"></g:field>
+                </div>
             </fieldset>
             <fieldset class="buttons">
-                <g:actionSubmit class="save" action="" value="Enregistrer les informations" />
+                <g:actionSubmit class="save" action="updateSimpleAccount" value="Enregistrer les informations" />
             </fieldset>
         </g:form>
     </div>
