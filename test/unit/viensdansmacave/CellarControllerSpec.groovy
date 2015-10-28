@@ -171,4 +171,38 @@ class CellarControllerSpec extends Specification {
         and: "The showCellar action is called"
         response.redirectedUrl == '/cellar/showCellar'
     }
+
+    void "test rate cellar access"() {
+        given: "a cellar, the spring security service and cellar service"
+        def cellar = Mock(Cellar)
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+
+        when: "the action is called"
+        controller.rateCellar(cellar)
+
+        then: "the rate if it exist is getting from the service"
+        1 * cellarService.getRateByUserAndCellar(_, _)
+
+        and: "the correct view is rendering"
+        view == '/cellar/rateCellar'
+    }
+
+    void "test adding rate action"() {
+        given: "a cellar, the spring security service and cellar service"
+        def cellar = Mock(Cellar)
+        def memberRate = Mock(MemberCellarRate) {hasErrors() >> false}
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+
+        when: "the action is called"
+        populateValidParams(params)
+        controller.addRate(cellar)
+
+        then: "the rate if it exist is getting from the service"
+        1 * cellarService.addRateForCellar(_, _, _) >> memberRate
+
+        and: "the correct view is rendering"
+        view == '/cellar/rateCellar'
+    }
 }

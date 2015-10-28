@@ -73,11 +73,19 @@ class CellarController {
 
     def rateCellar(Cellar cellar) {
         def member = springSecurityService.currentUser
-        def res = cellarService.addRateForCellar(cellar, member, params.rate as float)
+        def rate = cellarService.getRateByUserAndCellar(cellar, member)
+        render (view: 'rateCellar', model:[rate: rate, cellar: cellar])
     }
 
     def addRate(Cellar cellar) {
-
+        def member = springSecurityService.currentUser
+        def ret = cellarService.addRateForCellar(cellar, member, params.rate as float)
+        if (ret.hasErrors())
+            flash.message = "Votre vote n'a pas été prise en compte !"
+        else
+            flash.message = "Vote enregistrée !"
+        def rate = cellarService.getRateByUserAndCellar(cellar, member)
+        render (view: 'rateCellar', model:[rate: rate, cellar: cellar])
     }
 
     @Transactional
