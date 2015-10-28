@@ -86,7 +86,6 @@ class MemberController {
     @Secured('isAuthenticated()')
     def editSimpleAccount() {
         def member = springSecurityService.currentUser
-
         render(view: 'editSimpleAccount', model:[member: member])
     }
 
@@ -111,6 +110,19 @@ class MemberController {
             }
             '*' { respond memberInstance, [status: OK] }
         }
+    }
+
+    @Secured('isAuthenticated()')
+    def updateSimpleAccount(Member member) {
+
+        if (member.hasErrors()) {
+            respond member.errors, view: 'editSimpleAccount', model:[member: member]
+            return
+        }
+
+        memberService.updateSimpleAccount(member)
+        flash.message = "Votre compte a bien été mis à jour"
+        redirect action:"showSimpleAccount"
     }
 
     @Transactional
