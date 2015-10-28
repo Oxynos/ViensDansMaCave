@@ -25,19 +25,19 @@
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
-<g:form url="[action: 'addRate']">
+<g:form action="addRate" id="${cellar.id}">
     <fieldset class="form">
         <div class="fieldcontain">
             <label for="rate1">1</label>
-            <g:radio id="rate1" name="rate" value="1" checked="${rate.rate == 1.floatValue()}"/>
+            <g:radio id="rate1" name="rate" value="1" checked="${rate && rate.rate == 1.floatValue()}"/>
             <label for="rate2">2</label>
-            <g:radio id="rate2" name="rate" value="2" checked="${rate.rate == 2.floatValue()}"/>
+            <g:radio id="rate2" name="rate" value="2" checked="${rate && rate.rate == 2.floatValue()}"/>
             <label for="rate3">3</label>
-            <g:radio id="rate3" name="rate" value="3" checked="${rate.rate == 3.floatValue()}"/>
+            <g:radio id="rate3" name="rate" value="3" checked="${rate && rate.rate == 3.floatValue()}"/>
             <label for="rate4">4</label>
-            <g:radio id="rate4" name="rate" value="4" checked="${rate.rate == 4.floatValue()}"/>
+            <g:radio id="rate4" name="rate" value="4" checked="${rate && rate.rate == 4.floatValue()}"/>
             <label for="rate5">5</label>
-            <g:radio id="rate5" name="rate" value="5" checked="${rate.rate == 5.floatValue()}"/>
+            <g:radio id="rate5" name="rate" value="5" checked="${rate && rate.rate == 5.floatValue()}"/>
         </div>
         <div class="fieldcontain">
             <g:actionSubmit action="addRate" value="Voter" />
