@@ -170,7 +170,7 @@ class MemberControllerSpec extends Specification {
     }
 
     void "Test that the showSimpleAccount action renders the correct view"() {
-        when: "The showSimpleAccount is called"
+        when: "The showSimpleAccount action is called"
         controller.springSecurityService = springSecurityService
         controller.showSimpleAccount()
 
@@ -179,7 +179,7 @@ class MemberControllerSpec extends Specification {
     }
 
     void "Test that the deleteSimpleAccount action renders the correct view and log out the user"() {
-        when: "The deleteSimpleAccount is called"
+        when: "The deleteSimpleAccount action is called"
         controller.springSecurityService = springSecurityService
         controller.memberService = memberServiceMock
         controller.deleteSimpleAccount()
@@ -188,5 +188,26 @@ class MemberControllerSpec extends Specification {
         view == '/member/deleteSimpleAccount'
         SecurityContextHolder.getContext().getAuthentication() == null
 
+    }
+
+    void "Test that the editSimpleAccount action renders the correct view"() {
+        when: "The editSimpleAccount action is called"
+        controller.springSecurityService = springSecurityService
+        controller.editSimpleAccount()
+
+        then: "The editSimpleAccount view is rendered"
+        view == '/member/editSimpleAccount'
+    }
+
+    void "Test that the updateSimpleAccount action redirects to the correct action"() {
+        given: "A member"
+        def mb = Mock(Member)
+        controller.memberService = memberServiceMock
+
+        when: "The updateSimpleAccount action is done"
+        controller.updateSimpleAccount(mb)
+
+        then: "The showSimpleAccount action is called"
+        response.redirectedUrl == '/member/showSimpleAccount'
     }
 }
