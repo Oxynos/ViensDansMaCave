@@ -46,10 +46,16 @@ class CellarService {
     }
 
     def addRateForCellar(Cellar cellar, Member member, float rate) {
-        def memberRate = new MemberCellarRate()
-        memberRate.cellar = cellar
-        memberRate.member = member
-        memberRate.rate = rate
+        def memberRate = cellarDAOService.getRateByUserAndCellar(cellar, member)
+        if (memberRate) {
+            memberRate.rate = rate
+        }
+        else {
+            memberRate = new MemberCellarRate()
+            memberRate.cellar = cellar
+            memberRate.member = member
+            memberRate.rate = rate
+        }
         def memberCellarRate = cellarDAOService.addMemberRating(memberRate)
         if (!memberCellarRate.hasErrors())
             updateRate(cellar)

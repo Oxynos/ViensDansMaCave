@@ -107,6 +107,7 @@ class CellarServiceSpec extends Specification {
         service.addRateForCellar(cellar, member, 2)
 
         then: "the dao methods is called to save the new rate and the cellar rate is computed and saved"
+        1 * cellarDAOService.getRateByUserAndCellar(_, _) >> memberCellarRate
         1 * cellarDAOService.addMemberRating(_) >> memberCellarRate
         1 * cellarDAOService.computeRateForCellar(cellar) >> 5.floatValue()
         1 * cellarDAOService.saveCellar(_)
