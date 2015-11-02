@@ -86,7 +86,8 @@ class MemberController {
     @Secured('isAuthenticated()')
     def editSimpleAccount() {
         def member = springSecurityService.currentUser
-        render(view: 'editSimpleAccount', model:[member: member])
+        String passwordConfirm = member.password
+        render(view: 'editSimpleAccount', model:[member: member, passwordConfirm: passwordConfirm])
     }
 
     @Transactional
@@ -113,7 +114,14 @@ class MemberController {
     }
 
     @Secured('isAuthenticated()')
-    def updateSimpleAccount(Member member) {
+    def updateSimpleAccount(Member member, String passwordConfirm) {
+
+        if(!passwordConfirm.equals(member.password)) {
+            member.errors.reject(
+                    'member.password.doesnotmatch',
+                    ['password', 'class Member'] as Object[],
+                    'Erreur lors de la confirmation du mot de passe')
+        }
 
         if (member.hasErrors()) {
             respond member.errors, view: 'editSimpleAccount', model:[member: member]

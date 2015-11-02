@@ -29,6 +29,14 @@
                     <label>Nom d'utilisateur *</label>
                     <g:field type="text" name="username" required="true" value="${member?.username}"></g:field>
                 </div>
+                <div class="${hasErrors(bean:member,field:'password', 'error')}">
+                    <label>Mot de passe *</label>
+                    <g:field type="password" name="password" required="true" value="${member?.password}"></g:field>
+                </div>
+                <div class="${hasErrors(bean:member,field:'password', 'error')}">
+                    <label>Confirmer le mot de passe *</label>
+                    <g:field type="password" name="passwordConfirm" required="true" value="${passwordConfirm}" default="${member?.password}"></g:field>
+                </div>
                 <div class="${hasErrors(bean:member,field:'email', 'error')}">
                     <label>Email</label>
                     <g:field type="text" name="email" value="${member?.email}"></g:field>

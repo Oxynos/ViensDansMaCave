@@ -3,6 +3,7 @@ package viensdansmacave
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.test.mixin.*
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.validation.Errors
 import spock.lang.*
 
 @TestFor(MemberController)
@@ -199,15 +200,28 @@ class MemberControllerSpec extends Specification {
         view == '/member/editSimpleAccount'
     }
 
-    void "Test that the updateSimpleAccount action redirects to the correct action"() {
+    void "Test that the updateSimpleAccount action with valid parameters redirects to the correct action"() {
         given: "A member"
         def mb = Mock(Member)
         controller.memberService = memberServiceMock
 
         when: "The updateSimpleAccount action is done"
-        controller.updateSimpleAccount(mb)
+        controller.updateSimpleAccount(mb, mb.password)
 
         then: "The showSimpleAccount action is called"
         response.redirectedUrl == '/member/showSimpleAccount'
+    }
+
+    void "Test that the updateSimpleAccount action with invalid parameters renders the correct view"() {
+        given: "A member"
+        def mb = new Member(params)
+        controller.memberService = memberServiceMock
+
+        when: "The updateSimpleAccount action is called with invalid parameters"
+        mb.password = "mdp"
+        controller.updateSimpleAccount(mb, "notmdp")
+
+        then: "The editSimpleAccount view is rendered"
+        view == 'editSimpleAccount'
     }
 }
