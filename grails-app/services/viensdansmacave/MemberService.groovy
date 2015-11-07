@@ -27,4 +27,8 @@ class MemberService {
     def deleteSimpleAccount(Member member) {
         memberDAOService.deleteSimpleAccount(member)
     }
+
+    def updateSimpleAccount(Member member) {
+        memberDAOService.saveSimpleAccount(member)
+    }
 }

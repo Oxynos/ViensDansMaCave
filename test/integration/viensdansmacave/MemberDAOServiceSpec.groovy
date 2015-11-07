@@ -51,4 +51,20 @@ class MemberDAOServiceSpec extends Specification{
         Cellar.findByMember(member) == null
         WineCellar.findByCellar(cellar) == null
     }
+
+    void "test that when the saveSimpleAccount method is called on an existing Member the Member is updated"() {
+        given: "A Member from the test set"
+        def member = testSetService.member1
+        member.email = "test@test.com"
+        member.birthday = new Date(1990,3,12)
+        member.country = "FRANCE"
+        member.city = "TOULOUSE"
+
+        when: "The member is saved with new informations"
+        memberDAOService.saveSimpleAccount(member)
+
+        then: "The member is updated"
+        testSetService.member1 == member
+    }
+
 }

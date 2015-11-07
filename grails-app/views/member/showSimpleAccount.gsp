@@ -18,6 +18,10 @@
 
         <h1><sec:loggedInUserInfo field="username"/></h1>
 
+        <g:if test="${flash.message}">
+            <div class="message" role="status">${flash.message}</div>
+        </g:if>
+
         <ol class="property-list member">
             <li class="fieldcontain">
                 <span class="property-label"> Email </span>
@@ -25,7 +29,7 @@
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Date de naissance </span>
-                <span class="property-value">${member.birthday}</span>
+                <span class="property-value"><g:formatDate format="dd/MM/yyyy" date="${member.birthday}"/></span>
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Pays </span>
@@ -40,6 +44,7 @@
 
         <g:form url="[resource:member, action:'deleteSimpleAccount']" method="DELETE">
             <fieldset class="buttons">
+                <g:link class="edit" action="editSimpleAccount" resource="${member}">Modifier mes informations</g:link>
                 <g:actionSubmit class="delete" action="deleteSimpleAccount" value="Supprimer mon compte" onclick="return confirm('Etes-vous sûr de vouloir supprimer votre compte ?');" />
             </fieldset>
         </g:form>
