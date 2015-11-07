@@ -35,7 +35,7 @@
                 </div>
                 <div class="${hasErrors(bean:member,field:'password', 'error')}">
                     <label>Confirmer le mot de passe *</label>
-                    <g:field type="password" name="passwordConfirm" required="true" value="${passwordConfirm}" default="${member?.password}"></g:field>
+                    <g:field type="password" name="passwordConfirm" required="true" value="${passwordConfirm ? passwordConfirm : member?.password}"></g:field>
                 </div>
                 <div class="${hasErrors(bean:member,field:'email', 'error')}">
                     <label>Email</label>

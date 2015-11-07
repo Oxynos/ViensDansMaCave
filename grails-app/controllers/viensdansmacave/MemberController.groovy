@@ -85,8 +85,7 @@ class MemberController {
     @Secured('isAuthenticated()')
     def editSimpleAccount() {
         def member = springSecurityService.currentUser
-        String passwordConfirm = member.password
-        render(view: 'editSimpleAccount', model:[member: member, passwordConfirm: passwordConfirm])
+        render(view: 'editSimpleAccount', model:[member: member])
     }
 
     @Transactional
@@ -123,7 +122,7 @@ class MemberController {
         }
 
         if (member.hasErrors()) {
-            respond member.errors, view: 'editSimpleAccount', model:[member: member]
+            respond member.errors, view: 'editSimpleAccount', model:[member: member, passwordConfirm: passwordConfirm]
             return
         }
 
