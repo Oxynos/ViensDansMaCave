@@ -367,13 +367,14 @@ class CellarControllerSpec extends Specification {
         controller.wineService = wineService
         def wine = Mock(Wine)
         params["wine"] = "5"
+        params["quantity"] = "5"
 
         when: "the action is called"
         controller.addWineInCellar()
 
         then: "wines are selected by names and years"
         1 * wineService.find(5.longValue()) >> wine
-        1 * cellarService.addWineInCellar(wine, member.cellar) >> Mock(WineCellar) {hasErrors() >> false}
+        1 * cellarService.addWineInCellar(wine, member.cellar, 5) >> Mock(WineCellar) {hasErrors() >> false}
 
         and: "the correct view is rendering"
         response.redirectedUrl == '/cellar/showCellar'
@@ -384,7 +385,7 @@ class CellarControllerSpec extends Specification {
 
         then: "wines are selected by names and years"
         1 * wineService.find(5.longValue()) >> wine
-        1 * cellarService.addWineInCellar(wine, member.cellar) >> Mock(WineCellar) {hasErrors() >> true}
+        1 * cellarService.addWineInCellar(wine, member.cellar, 5) >> Mock(WineCellar) {hasErrors() >> true}
         1 * wineService.findWineNames()
         1 * wineService.findWineYears()
 
