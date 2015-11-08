@@ -50,7 +50,10 @@ class CellarController {
         if (params.name == "")
             params.name = null
         def wines = wineService.getWinesByNameAndYear(params.name, params.year as int)
-        if (wines.isEmpty()) {
+        if (wines == null) {
+            flash.message = 'Sélectionnez au moins un critère !'
+        }
+        else if (wines.isEmpty()) {
             flash.message = 'Aucun vin ne correspond à votre recherche'
         }
         render view: "addWine", model: [names: names, years: years, wines: wines]
