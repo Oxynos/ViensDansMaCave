@@ -106,4 +106,16 @@ class CellarDAOServiceSpec extends Specification{
         then: "the rate is 4"
         res.rate == 4
     }
+
+    void "Test that the cellarRanking method returns a list of 10 cellars with the best note"() {
+        given: "A test set"
+        testSetService
+
+        when: "The cellarRanking method is called"
+        def ret = cellarDAOService.getBestCellars()
+
+        then: "A list of cellar with their ranking is returned"
+        ret.size() == 3
+        ret.get(0).rate == 3.floatValue()
+    }
 }

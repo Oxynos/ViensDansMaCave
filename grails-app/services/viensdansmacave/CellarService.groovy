@@ -78,4 +78,8 @@ class CellarService {
     def getRateByUserAndCellar(Cellar cellar, Member member) {
         cellarDAOService.getRateByUserAndCellar(cellar, member)
     }
+
+    def getCellarRanking() {
+        cellarDAOService.getBestCellars()
+    }
 }

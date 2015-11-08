@@ -9,6 +9,7 @@ class HomeController {
     @Secured('permitAll')
     def index() {
         def wineRanking = cellarService.wineRanking()
-        render(view:"index",model: [wines : wineRanking])
+        def cellarRanking = cellarService.getCellarRanking()
+        render(view:"index",model: [wines : wineRanking, cellars: cellarRanking])
     }
 }
