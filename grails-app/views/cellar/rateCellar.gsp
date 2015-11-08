@@ -21,7 +21,7 @@
 
 <body>
 
-<h1></h1>
+<h1>Noter la cave de ${cellar.member.username}</h1>
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>

@@ -194,9 +194,10 @@ class CellarControllerSpec extends Specification {
         def memberRate = Mock(MemberCellarRate) {hasErrors() >> false}
         controller.springSecurityService = springSecurityService
         controller.cellarService = cellarService
+        params["rate"] = 3.0
+        params["member"] = Mock(Member)
 
         when: "the action is called"
-        populateValidParams(params)
         controller.addRate(cellar)
 
         then: "the rate if it exist is getting from the service"
@@ -205,4 +206,24 @@ class CellarControllerSpec extends Specification {
         and: "the correct view is rendering"
         view == '/cellar/rateCellar'
     }
+
+    void "test adding rate action with no vote"() {
+        given: "a cellar, the spring security service and cellar service and a null rate"
+        def cellar = Mock(Cellar)
+        def memberRate = Mock(MemberCellarRate) {hasErrors() >> false}
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+        params["rate"] = null
+        params["member"] = Mock(Member)
+
+        when: "the action is called"
+        controller.addRate(cellar)
+
+        then: "the rate is not registered"
+        0 * cellarService.addRateForCellar(_, _, _) >> memberRate
+
+        and: "the correct view is rendering"
+        view == '/cellar/rateCellar'
+    }
+
 }
