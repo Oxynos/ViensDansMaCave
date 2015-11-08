@@ -115,10 +115,9 @@ class MemberController {
     def updateSimpleAccount(Member member, String passwordConfirm) {
 
         if(!passwordConfirm.equals(member.password)) {
-            member.errors.reject(
-                    'member.password.doesnotmatch',
-                    ['password', 'class Member'] as Object[],
-                    'Erreur lors de la confirmation du mot de passe')
+            member.errors.rejectValue(
+                    'password',
+                    'member.password.doesnotmatch')
         }
 
         if (member.hasErrors()) {

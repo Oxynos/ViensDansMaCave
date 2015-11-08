@@ -8,42 +8,55 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <meta name="layout" content="main"/>
-  <title></title>
+    <meta name="layout" content="main"/>
+    <title></title>
 </head>
+
 <body>
-<table>
-  <caption>Classement des vins les plus présents</caption>
-  <thead>
-  <tr>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="jumbotron">
+            <h1>Bienvenue !</h1>
+            <p>“Viens dans ma cave” est un site permettant de fédérer une communauté de passionnés de vin. Ce site permet à une communauté de membres de gérer les bouteilles de leur cave et de noter les caves des autres membres.</p>
+            <p><g:link controller='member' action='createSimpleAccount' class="btn btn-danger btn-lg" >Rejoindre la communauté</g:link></p>
+        </div>
+    </div>
+</div>
 
-    <g:sortableColumn property="name" title="Nom" />
+<div class="row">
+    <div class="col-xs-6">
+        <table class="table table-striped">
+            <caption>Classement des vins les plus présents</caption>
+            <thead>
+            <tr>
 
-    <g:sortableColumn property="year" title="Année" />
+                <th>Nom</th>
 
-    <g:sortableColumn property="color" title="Couleur" />
+                <th>Année</th>
 
-    <g:sortableColumn property="quantity" title="Quantité" />
+                <th>Couleur</th>
 
-    <th></th>
+                <th>Quantité</th>
 
-  </tr>
-  </thead>
-  <tbody>
+            </tr>
+            </thead>
+            <tbody>
 
-  <g:each in="${wines}" status="i" var="wineInstance">
-    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+            <g:each in="${wines}" status="i" var="wineInstance">
+                <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-      <td>${fieldValue(bean: wineInstance[0], field: "name")}</td>
+                    <td>${fieldValue(bean: wineInstance[0], field: "name")}</td>
 
-      <td>${fieldValue(bean: wineInstance[0], field: "year")}</td>
+                    <td>${fieldValue(bean: wineInstance[0], field: "year")}</td>
 
-      <td>${fieldValue(bean: wineInstance[0], field: "color")}</td>
+                    <td>${fieldValue(bean: wineInstance[0], field: "color")}</td>
 
-      <td>${wineInstance[1]}</td>
-    </tr>
-  </g:each>
-  </tbody>
-  </table>
+                    <td>${wineInstance[1]}</td>
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

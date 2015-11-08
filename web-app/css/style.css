@@ -1,0 +1,49 @@
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
+.padding-top-40 {
+    padding-top: 40px;
+}
+
+#logo {
+    width: 80px;
+    float: left;
+    margin-right: 10px;
+}
+
+.footer {
+    background-color: rgb(238, 238, 238);
+    bottom: 0;
+    height: 60px;
+    padding-top: 20px;
+    position: fixed;
+    width: 100%;
+}
+
+#page-header {
+    background-color: rgb(153, 0, 0);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+#page-header a {
+    color: white;
+}
+
+#page-header a.btn {
+    color: black;
+}
+
+.footer a, table a {
+    color: rgb(153, 0, 0);
+}
+
+body {
+    padding-bottom:100px;
+}

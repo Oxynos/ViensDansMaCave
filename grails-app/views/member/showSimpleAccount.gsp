@@ -14,42 +14,62 @@
 
 <body>
 
-    <div class="content">
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
 
         <h1><sec:loggedInUserInfo field="username"/></h1>
 
         <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+            <div class="message alert alert-success" role="status">${flash.message}</div>
         </g:if>
 
-        <ol class="property-list member">
-            <li class="fieldcontain">
-                <span class="property-label"> Email </span>
-                <span class="property-value"> ${member.email} </span>
+        <ol class="property-list member list-group">
+            <li class="fieldcontain list-group-item">
+                <div class="row">
+                    <div class="property-label col-xs-4 text-right">Email</div>
+
+                    <div class="property-value col-xs-5 text-right">${member.email}</div>
+                </div>
             </li>
-            <li class="fieldcontain">
-                <span class="property-label">Date de naissance </span>
-                <span class="property-value"><g:formatDate format="dd/MM/yyyy" date="${member.birthday}"/></span>
+            <li class="fieldcontain list-group-item">
+                <div class="row">
+                    <div class="property-label col-xs-4 text-right">Date de naissance</div>
+
+                    <div class="property-value col-xs-5 text-right"><g:formatDate format="dd/MM/yyyy" date="${member.birthday}"/></div>
+                </div>
             </li>
-            <li class="fieldcontain">
-                <span class="property-label">Pays </span>
-                <span class="property-value"> ${member.country}</span>
+            <li class="fieldcontain list-group-item">
+                <div class="row">
+                    <div class="property-label col-xs-4 text-right">Pays</div>
+
+                    <div class="property-value col-xs-5 text-right">${member.country}</div>
+                </div>
             </li>
-            <li class="fieldcontain">
-                <span class="property-label">Ville </span>
-                <span class="property-value"> ${member.city}</span>
+            <li class="fieldcontain list-group-item">
+                <div class="row">
+                    <div class="property-label col-xs-4 text-right">Ville</div>
+
+                    <div class="property-value col-xs-5 text-right">${member.city}</div>
+                </div>
             </li>
 
         </ol>
 
-        <g:form url="[resource:member, action:'deleteSimpleAccount']" method="DELETE">
-            <fieldset class="buttons">
-                <g:link class="edit" action="editSimpleAccount" resource="${member}">Modifier mes informations</g:link>
-                <g:actionSubmit class="delete" action="deleteSimpleAccount" value="Supprimer mon compte" onclick="return confirm('Etes-vous sûr de vouloir supprimer votre compte ?');" />
-            </fieldset>
-        </g:form>
-
+        <div class="row">
+            <g:form url="[resource: member, action: 'deleteSimpleAccount']" method="DELETE"
+                    class="col-xs-6 col-xs-offset-3 text-center">
+                <fieldset class="buttons">
+                    <g:link class="edit btn btn-danger" action="editSimpleAccount"
+                            resource="${member}">Modifier mes informations</g:link>
+                    <g:actionSubmit class="delete btn btn-danger" action="deleteSimpleAccount"
+                                    value="Supprimer mon compte"
+                                    onclick="return confirm('Etes-vous sûr de vouloir supprimer votre compte ?');"/>
+                </fieldset>
+            </g:form>
+        </div>
     </div>
+
+</div>
 
 </body>
 </html>

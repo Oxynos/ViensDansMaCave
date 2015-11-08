@@ -14,8 +14,11 @@
 
 <body>
 
-<div id="messageConfirmation">
-    Votre compte a bien été supprimé.
+
+<div class="row">
+    <div class="col-xs-12 alert alert-success">
+        Votre compte a bien été supprimé.
+    </div>
 </div>
 
 </body>
