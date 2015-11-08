@@ -45,7 +45,15 @@
 
                 <td>${fieldValue(bean: wineCellarInstance.wine, field: "color")}</td>
 
-                <td><g:link action="reduceQuantity" id="${wineCellarInstance.id}">-</g:link>${fieldValue(bean: wineCellarInstance, field: "quantity")}<g:link action="increaseQuantity" id="${wineCellarInstance.id}">+</g:link></td>
+                <td>
+                    <g:if test="${isMe}">
+                        <g:link action="reduceQuantity" id="${wineCellarInstance.id}">-</g:link>
+                    </g:if>
+                    ${fieldValue(bean: wineCellarInstance, field: "quantity")}
+                    <g:if test="${isMe}">
+                        <g:link action="increaseQuantity" id="${wineCellarInstance.id}">+</g:link>
+                    </g:if>
+                </td>
 
                 <td>
                     <fieldset class="buttons" style="display: inline; margin: 0 0.1em; padding: 0.1em 0.1em;">

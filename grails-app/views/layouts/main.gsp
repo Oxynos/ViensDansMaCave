@@ -46,6 +46,8 @@
                             class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mon compte</g:link>
                     <g:link controller='Cellar' action='showCellar' class="btn btn-default"><span
                             class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span> Ma cave</g:link>
+                    <g:link controller='Cellar' action='index' class="btn btn-default"><span
+                            class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>Toutes les caves</g:link>
                 </div>
             </sec:ifLoggedIn>
         </div>

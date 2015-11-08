@@ -67,7 +67,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.0.3"
         compile ':cache:1.1.7'
 
-        test ":code-coverage:2.0.3-2"
+        test ":code-coverage:2.0.3-3"
         compile ":spring-security-core:2.0-RC5"
 
         compile ":codenarc:0.24.1"
