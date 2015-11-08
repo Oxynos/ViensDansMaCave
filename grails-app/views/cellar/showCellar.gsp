@@ -7,57 +7,70 @@
 
 <body>
 
-<a href="#list-wineCellar" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-        <li><g:link action="addWine">Ajouter un nouveau vin à ma cave</g:link></li>
-    </ul>
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <g:link action="addWine" class="btn btn-danger">Ajouter un nouveau vin à ma cave</g:link>
+    </div>
 </div>
-<div id="list-wineCellar" class="content scaffold-list" role="main">
-    <h1>La cave de <sec:loggedInUserInfo field="username"/> (Note : ${member.cellar.rate}/5)</h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-    <table>
-        <thead>
-        <tr>
 
-            <g:sortableColumn property="name" title="Nom" />
+<div class="row">
+    <div class="col-xs-12" role="main">
+        <h1>La cave de <sec:loggedInUserInfo field="username"/> (Note : ${member.cellar.rate}/5)</h1>
+    </div>
+</div>
 
-            <g:sortableColumn property="year" title="Année" />
+<div class="row margin-top-20">
+    <div class="col-xs-10 col-xs-offset-1">
+        <g:if test="${flash.message}">
+            <div class="alert alert-info" role="status">${flash.message}</div>
+        </g:if>
+        <table class="table">
+            <thead>
+            <tr>
 
-            <g:sortableColumn property="color" title="Couleur" />
+                <g:sortableColumn property="name" title="Nom"/>
 
-            <g:sortableColumn property="quantity" title="Quantité" />
+                <g:sortableColumn property="year" title="Année"/>
 
-            <th></th>
+                <g:sortableColumn property="color" title="Couleur"/>
 
-        </tr>
-        </thead>
-        <tbody>
-        <g:each in="${member.cellar.wineCellars}" status="i" var="wineCellarInstance">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                <g:sortableColumn property="quantity" title="Quantité"/>
 
-                <td>${fieldValue(bean: wineCellarInstance.wine, field: "name")}</td>
-
-                <td>${fieldValue(bean: wineCellarInstance.wine, field: "year")}</td>
-
-                <td>${fieldValue(bean: wineCellarInstance.wine, field: "color")}</td>
-
-                <td><g:link action="reduceQuantity" id="${wineCellarInstance.id}">-</g:link>${fieldValue(bean: wineCellarInstance, field: "quantity")}<g:link action="increaseQuantity" id="${wineCellarInstance.id}">+</g:link></td>
-
-                <td><g:link controller="wine" action="show" id="${wineCellarInstance.wine.id}">Accéder au vin</g:link>
-                    <g:link controller="cellar" action="removeWineFromCellar" id="${wineCellarInstance.wine.id}">Supprimer ce vin</g:link> </td>
+                <th></th>
 
             </tr>
-        </g:each>
-        </tbody>
-    </table>
-    <div class="pagination">
-        <g:paginate total="${wineCellarInstanceCount ?: 0}" />
+            </thead>
+            <tbody>
+            <g:each in="${member.cellar.wineCellars}" status="i" var="wineCellarInstance">
+                <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                    <td>${fieldValue(bean: wineCellarInstance.wine, field: "name")}</td>
+
+                    <td>${fieldValue(bean: wineCellarInstance.wine, field: "year")}</td>
+
+                    <td>${fieldValue(bean: wineCellarInstance.wine, field: "color")}</td>
+
+                    <td><g:link action="reduceQuantity"
+                                id="${wineCellarInstance.id}" class="badge">-</g:link> ${fieldValue(bean: wineCellarInstance, field: "quantity")} <g:link
+                            action="increaseQuantity" id="${wineCellarInstance.id}" class="badge">+</g:link></td>
+
+                    <td><g:link controller="wine" action="show"
+                                id="${wineCellarInstance.wine.id}" class="btn btn-danger" alt="Voir ce vin" title="Voir ce vin"><span
+                                class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></g:link>
+                        <g:link controller="cellar" action="removeWineFromCellar"
+                                id="${wineCellarInstance.wine.id}" class="btn btn-danger" alt="Supprimer ce vin" title="Supprimer ce vin"><span
+                                class="glyphicon glyphicon-trash" aria-hidden="true"></span></g:link></td>
+
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <g:paginate total="${wineCellarInstanceCount ?: 0}"/>
+        </div>
     </div>
+</div>
 </div>
 
 </body>

@@ -14,7 +14,7 @@
 
 <body>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-8">
         <div class="jumbotron">
             <h1>Bienvenue !</h1>
             <p>“Viens dans ma cave” est un site permettant de fédérer une communauté de passionnés de vin. Ce site permet à une communauté de membres de gérer les bouteilles de leur cave et de noter les caves des autres membres.</p>
