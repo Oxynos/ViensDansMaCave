@@ -191,4 +191,205 @@ class CellarControllerSpec extends Specification {
         then: "The increaseQuantity method of the service is called"
         1 * cellarService.reduceQuantity(_)
     }
+
+    void "test rate cellar access"() {
+        given: "a cellar, the spring security service and cellar service"
+        def cellar = Mock(Cellar)
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+
+        when: "the action is called"
+        controller.rateCellar(cellar)
+
+        then: "the rate if it exist is getting from the service"
+        1 * cellarService.getRateByUserAndCellar(_, _)
+
+        and: "the correct view is rendering"
+        view == '/cellar/rateCellar'
+    }
+
+    void "test rate cellar access owner cellar"() {
+        given: "a cellar, the spring security service and cellar service"
+        def member = Mock(Member)
+        def cellar = Mock(Cellar) {getMember() >> member}
+        SpringSecurityService springSecurityService = Mock(SpringSecurityService) {getCurrentUser() >> member}
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+
+        when: "the action is called"
+        controller.rateCellar(cellar)
+
+        then: "the rate if it exist is getting from the service"
+        0 * cellarService.getRateByUserAndCellar(_, _)
+
+        and: "the correct view is rendering"
+        response.redirectedUrl == '/cellar/index'
+        flash.message == "Vous ne pouvez pas noter votre cave !"
+    }
+
+    void "test adding rate action"() {
+        given: "a cellar, the spring security service and cellar service"
+        def cellar = Mock(Cellar)
+        def memberRate = Mock(MemberCellarRate) {hasErrors() >> false}
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+        params["rate"] = 3.0
+        params["member"] = Mock(Member)
+
+        when: "the action is called"
+        controller.addRate(cellar)
+
+        then: "the rate if it exist is getting from the service"
+        1 * cellarService.addRateForCellar(_, _, _) >> memberRate
+
+        and: "the correct view is rendering with good message"
+        view == '/cellar/rateCellar'
+        flash.message == "Vote enregistrée !"
+    }
+
+    void "test adding rate action with errors"() {
+        given: "a cellar, the spring security service and cellar service"
+        def cellar = Mock(Cellar)
+        def memberRate = Mock(MemberCellarRate) {hasErrors() >> true}
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+        params["rate"] = 3.0
+        params["member"] = Mock(Member)
+
+        when: "the action is called"
+        controller.addRate(cellar)
+
+        then: "the rate if it exist is getting from the service"
+        1 * cellarService.addRateForCellar(_, _, _) >> memberRate
+
+        and: "the correct view is rendering with error message"
+        view == '/cellar/rateCellar'
+        flash.message == "Votre vote n'a pas été prise en compte !"
+    }
+
+    void "test adding rate action with no vote"() {
+        given: "a cellar, the spring security service and cellar service and a null rate"
+        def cellar = Mock(Cellar)
+        def memberRate = Mock(MemberCellarRate) {hasErrors() >> false}
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+        params["rate"] = null
+        params["member"] = Mock(Member)
+
+        when: "the action is called"
+        controller.addRate(cellar)
+
+        then: "the rate is not registered"
+        0 * cellarService.addRateForCellar(_, _, _) >> memberRate
+
+        and: "the correct view is rendering"
+        view == '/cellar/rateCellar'
+    }
+
+    void "test adding wine action"() {
+        given: "the spring security service and wine service"
+        controller.springSecurityService = springSecurityService
+        def wineService = Mock(WineService)
+        controller.wineService = wineService
+
+        when: "the action is called"
+        controller.addWine()
+
+        then: "wines are selected by names and years"
+        1 * wineService.findWineNames()
+        1 * wineService.findWineYears()
+
+        and: "the correct view is rendering"
+        view == '/cellar/addWine'
+    }
+
+    void "test finding wine action"() {
+        given: "the spring security service and wine service and correct params"
+        controller.springSecurityService = springSecurityService
+        def wineService = Mock(WineService)
+        controller.wineService = wineService
+        params["name"] = "test"
+        params["year"] = "1981"
+
+        when: "the action is called"
+        controller.findWine()
+
+        then: "wines are selected by names and years with results"
+        1 * wineService.findWineNames()
+        1 * wineService.findWineYears()
+        1 * wineService.getWinesByNameAndYear("test", 1981) >> Arrays.asList(Mock(Wine))
+
+        and: "the correct view is rendering"
+        view == '/cellar/addWine'
+
+        when: "the action is called"
+        controller.findWine()
+
+        then: "wines are selected by names and years without result"
+        1 * wineService.findWineNames()
+        1 * wineService.findWineYears()
+        1 * wineService.getWinesByNameAndYear("test", 1981) >> Collections.emptyList()
+
+        and: "the correct view is rendering and a message appear"
+        view == '/cellar/addWine'
+        flash.message == 'Aucun vin ne correspond à votre recherche'
+    }
+
+    void "test finding wine action with empty name"() {
+        given: "the spring security service and wine service and correct params"
+        controller.springSecurityService = springSecurityService
+        def wineService = Mock(WineService)
+        controller.wineService = wineService
+        params["name"] = ""
+        params["year"] = "1981"
+
+        when: "the action is called"
+        controller.findWine()
+
+        then: "wines are selected by names and years"
+        1 * wineService.findWineNames()
+        1 * wineService.findWineYears()
+        1 * wineService.getWinesByNameAndYear(null, 1981) >> Collections.emptyList()
+
+        and: "the correct view is rendering"
+        view == '/cellar/addWine'
+        flash.message == 'Aucun vin ne correspond à votre recherche'
+    }
+
+    void "test adding wine in cellar"() {
+        given: "the spring security service and wine service and cellar service"
+        def cellar = Mock(Cellar)
+        def member = Mock(Member) {getCellar() >> cellar}
+        SpringSecurityService springSecurityService = Mock(SpringSecurityService) {getCurrentUser() >> member}
+        controller.springSecurityService = springSecurityService
+        controller.cellarService = cellarService
+        def wineService = Mock(WineService)
+        controller.wineService = wineService
+        def wine = Mock(Wine)
+        params["wine"] = "5"
+
+        when: "the action is called"
+        controller.addWineInCellar()
+
+        then: "wines are selected by names and years"
+        1 * wineService.find(5.longValue()) >> wine
+        1 * cellarService.addWineInCellar(wine, member.cellar) >> Mock(WineCellar) {hasErrors() >> false}
+
+        and: "the correct view is rendering"
+        response.redirectedUrl == '/cellar/showCellar'
+        flash.message == "Vin ajouté !"
+
+        when: "the action is called"
+        controller.addWineInCellar()
+
+        then: "wines are selected by names and years"
+        1 * wineService.find(5.longValue()) >> wine
+        1 * cellarService.addWineInCellar(wine, member.cellar) >> Mock(WineCellar) {hasErrors() >> true}
+        1 * wineService.findWineNames()
+        1 * wineService.findWineYears()
+
+        and: "the correct view is rendering"
+        view == '/cellar/addWine'
+        flash.message == "Erreur lors de l'ajout !"
+    }
 }

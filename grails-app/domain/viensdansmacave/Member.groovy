@@ -22,6 +22,10 @@ class Member implements Serializable {
 	        cellar : Cellar
 	]
 
+	static hasMany = [
+			memberRating : MemberCellarRate
+	]
+
 	Member(String username, String password) {
 		this()
 		this.username = username

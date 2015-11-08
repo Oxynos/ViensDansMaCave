@@ -68,4 +68,42 @@ class CellarDAOServiceSpec extends Specification{
         ret[0][1] == 1
     }
 
+    void "test computing rate for a cellar"() {
+        given: "A test set"
+        testSetService
+
+        when: "the method to compute is called for cellar 1"
+        def rates = cellarDAOService.computeRateForCellar(testSetService.cellar1)
+
+        then: "the rate average is 3: (4+2)/2"
+        rates == 3.floatValue()
+    }
+
+    void "test adding a rate for a cellar"() {
+        given: "A test set and a member rate"
+        testSetService
+        def memberRate = new MemberCellarRate()
+        memberRate.rate = 5
+        memberRate.member = testSetService.member1
+        memberRate.cellar = testSetService.cellar2
+
+        when: "adding the member rate"
+        cellarDAOService.addMemberRating(memberRate)
+
+        then: "There are 3 rates and one for cellar2"
+        MemberCellarRate.count == 3
+        def res = MemberCellarRate.findAllByCellar(testSetService.cellar2)
+        res.size() == 1
+    }
+
+    void "test getting a rate from user for a cellar"() {
+        given: "A test set"
+        testSetService
+
+        when: "getting the rate for a user and a cellar"
+        def res = cellarDAOService.getRateByUserAndCellar(testSetService.cellar1, testSetService.member2)
+
+        then: "the rate is 4"
+        res.rate == 4
+    }
 }

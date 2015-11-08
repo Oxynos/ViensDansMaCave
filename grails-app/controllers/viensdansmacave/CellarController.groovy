@@ -18,7 +18,8 @@ class CellarController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Cellar.list(params), model:[cellarInstanceCount: Cellar.count()]
+        def currentMember = springSecurityService.currentUser
+        respond Member.list(params), model: [memberInstanceCount: Member.count(), currentMember: currentMember]
     }
 
     def show(Cellar cellarInstance) {
@@ -71,7 +72,32 @@ class CellarController {
             flash.message = "Erreur lors de l'ajout !"
         }
     }
-    
+
+    def rateCellar(Cellar cellar) {
+        def member = springSecurityService.currentUser
+        if (cellar.member.equals(member)) {
+            flash.message = "Vous ne pouvez pas noter votre cave !"
+            redirect action: "index"
+        }
+        else {
+            def rate = cellarService.getRateByUserAndCellar(cellar, member)
+            render(view: 'rateCellar', model: [rate: rate, cellar: cellar])
+        }
+    }
+
+    def addRate(Cellar cellar) {
+        def member = springSecurityService.currentUser
+        if (params.rate) {
+            def ret = cellarService.addRateForCellar(cellar, member, params.rate as float)
+            if (ret.hasErrors())
+                flash.message = "Votre vote n'a pas été prise en compte !"
+            else
+                flash.message = "Vote enregistrée !"
+        }
+        def rate = cellarService.getRateByUserAndCellar(cellar, member)
+        render(view: 'rateCellar', model: [rate: rate, cellar: cellar])
+    }
+
     @Transactional
     def save(Cellar cellarInstance) {
         if (cellarInstance == null) {
