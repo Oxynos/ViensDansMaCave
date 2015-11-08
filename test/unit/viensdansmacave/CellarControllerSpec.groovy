@@ -364,6 +364,27 @@ class CellarControllerSpec extends Specification {
         flash.message == 'Aucun vin ne correspond à votre recherche'
     }
 
+    void "test finding wine action without param"() {
+        given: "the spring security service and wine service and correct params"
+        controller.springSecurityService = springSecurityService
+        def wineService = Mock(WineService)
+        controller.wineService = wineService
+        params["name"] = ""
+        params["year"] = "0"
+
+        when: "the action is called"
+        controller.findWine()
+
+        then: "wines are selected by names and years"
+        1 * wineService.findWineNames()
+        1 * wineService.findWineYears()
+        1 * wineService.getWinesByNameAndYear(_, _) >> null
+
+        and: "the correct view is rendering"
+        view == '/cellar/addWine'
+        flash.message == 'Sélectionnez au moins un critère !'
+    }
+
     void "test adding wine in cellar"() {
         given: "the spring security service and wine service and cellar service"
         def cellar = Mock(Cellar)
