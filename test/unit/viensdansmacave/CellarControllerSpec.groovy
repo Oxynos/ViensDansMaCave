@@ -5,7 +5,7 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(CellarController)
-@Mock(Cellar)
+@Mock([Cellar, Member])
 class CellarControllerSpec extends Specification {
 
     SpringSecurityService springSecurityService = Mock(SpringSecurityService) {getCurrentUser() >> Mock(Member)}
@@ -14,17 +14,19 @@ class CellarControllerSpec extends Specification {
     def populateValidParams(params) {
         assert params != null
         params["rate"] = 0.0
-        params["member"] = Mock(Member)
+        params["member"] = new Member("", "")
     }
 
     void "Test the index action returns the correct model"() {
 
         when: "The index action is executed"
+        controller.springSecurityService = springSecurityService
         controller.index()
 
         then: "The model is correct"
-        !model.cellarInstanceList
-        model.cellarInstanceCount == 0
+        !model.memberInstanceList
+        model.memberInstanceCount == 0
+        model.currentMember instanceof Member
     }
 
     void "Test the create action returns the correct model"() {
@@ -80,6 +82,12 @@ class CellarControllerSpec extends Specification {
         when: "The showCellar is called"
         controller.springSecurityService = springSecurityService
         controller.showCellar()
+
+        then: "The showCellar view is rendered"
+        view == '/cellar/showCellar'
+
+        when: "The showCellar is called by a current member"
+        controller.showCellar(new Member("", ""))
 
         then: "The showCellar view is rendered"
         view == '/cellar/showCellar'

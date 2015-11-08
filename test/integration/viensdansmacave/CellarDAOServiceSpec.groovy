@@ -15,13 +15,13 @@ class CellarDAOServiceSpec extends Specification{
         testSetService
 
         when: "The wineIsInCellar method is called with a wine in the cellar"
-        def ret = cellarDAOService.wineIsInCellar(testSetService.wine1,testSetService.cellar1)
+        def ret = cellarDAOService.wineIsInCellar(testSetService.wine1,testSetService.member1.cellar)
 
         then: "The wineIsInCellar method returns the WineCellar instance"
         (ret instanceof WineCellar) == true
 
         when: "The wineIsInCellar method is called with a vine which isn't in the cellar"
-        ret = cellarDAOService.wineIsInCellar(testSetService.wine2,testSetService.cellar1)
+        ret = cellarDAOService.wineIsInCellar(testSetService.wine2,testSetService.member1.cellar)
 
         then: "The wineIsInCellar method returns null"
         ret == null
@@ -38,7 +38,7 @@ class CellarDAOServiceSpec extends Specification{
         ret == true
 
         and: "The wine isn't in the cellar anymore"
-        WineCellar.findByWineAndCellar(testSetService.wine1,testSetService.cellar1) == null
+        WineCellar.findByWineAndCellar(testSetService.wine1,testSetService.member1.cellar) == null
     }
 
     void "Test adding a wine in a cellar"() {
@@ -46,14 +46,14 @@ class CellarDAOServiceSpec extends Specification{
         testSetService
         def wineCellar = new WineCellar()
         wineCellar.wine = testSetService.wine2
-        wineCellar.cellar = testSetService.cellar1
+        wineCellar.cellar = testSetService.member1.cellar
         wineCellar.quantity = 1
 
         when: "The addWineInCellar method is called with a wineCellar"
         cellarDAOService.addWineInCellar(wineCellar)
 
         then: "There are two wineCellars"
-        WineCellar.count == 3
+        WineCellar.count == 4
     }
 
     void "Test that the wineRanking method returns the list of Wines with their ranking"() {
