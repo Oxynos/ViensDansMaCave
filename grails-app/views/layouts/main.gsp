@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><g:layoutTitle default="Grails"/></title>
+    <title><g:layoutTitle default="Viens dans ma cave"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
@@ -67,13 +67,8 @@
 <div class="footer" role="contentinfo">
     <div class="container">
         <div class="row">
-            <div class="col-xs-6">
-                <a href="${createLink(uri: '/')}">
-                    Retour à l'accueil
-                </a>
-            </div>
 
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-6 col-xs-offset-6 text-right">
                 ViensDansMaCave 2015
             </div>
         </div>
