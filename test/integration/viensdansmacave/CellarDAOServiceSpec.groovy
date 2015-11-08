@@ -65,7 +65,7 @@ class CellarDAOServiceSpec extends Specification{
 
         then: "A list of wines with their ranking is returned"
         ret.size() == 2
-        ret[0][1] == 1
+        ret[0][1] == 2
     }
 
     void "test computing rate for a cellar"() {
@@ -73,7 +73,7 @@ class CellarDAOServiceSpec extends Specification{
         testSetService
 
         when: "the method to compute is called for cellar 1"
-        def rates = cellarDAOService.computeRateForCellar(testSetService.cellar1)
+        def rates = cellarDAOService.computeRateForCellar(testSetService.member1.cellar)
 
         then: "the rate average is 3: (4+2)/2"
         rates == 3.floatValue()
@@ -85,14 +85,14 @@ class CellarDAOServiceSpec extends Specification{
         def memberRate = new MemberCellarRate()
         memberRate.rate = 5
         memberRate.member = testSetService.member1
-        memberRate.cellar = testSetService.cellar2
+        memberRate.cellar = testSetService.member2.cellar
 
         when: "adding the member rate"
         cellarDAOService.addMemberRating(memberRate)
 
         then: "There are 3 rates and one for cellar2"
         MemberCellarRate.count == 3
-        def res = MemberCellarRate.findAllByCellar(testSetService.cellar2)
+        def res = MemberCellarRate.findAllByCellar(testSetService.member2.cellar)
         res.size() == 1
     }
 
@@ -101,7 +101,7 @@ class CellarDAOServiceSpec extends Specification{
         testSetService
 
         when: "getting the rate for a user and a cellar"
-        def res = cellarDAOService.getRateByUserAndCellar(testSetService.cellar1, testSetService.member2)
+        def res = cellarDAOService.getRateByUserAndCellar(testSetService.member1.cellar, testSetService.member2)
 
         then: "the rate is 4"
         res.rate == 4
