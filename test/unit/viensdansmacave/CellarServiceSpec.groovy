@@ -12,7 +12,9 @@ class CellarServiceSpec extends Specification {
     CellarDAOService cellarDAOService
 
     def setup() {
-        cellarDAOService = Mock(CellarDAOService) {wineIsInCellar(_,_) >> Mock(WineCellar)}
+        cellarDAOService = Mock(CellarDAOService) {
+            wineIsInCellar(_,_) >> Mock(WineCellar)
+        }
         service.cellarDAOService = cellarDAOService
     }
 
@@ -104,4 +106,64 @@ class CellarServiceSpec extends Specification {
         1 * cellarDAOService.addWineInCellar(_)
     }
 
+    void "Test updating cellar rate"() {
+        given : "A cellar"
+        Cellar cellar = new Cellar()
+        def newRate = 3.floatValue()
+
+        when : "The updateRate method is called"
+        service.updateRate(cellar)
+
+        then: "the new rate is computed and the cellar is saved"
+        1 * cellarDAOService.computeRateForCellar(cellar) >> newRate
+        1 * cellarDAOService.saveCellar(_)
+        cellar.rate == newRate
+    }
+
+    void "test getting the rate from a user for a cellar"() {
+        given : "A cellar and a member"
+        Cellar cellar = Mock()
+        Member member = Mock()
+
+        when : "The updateRate method is called"
+        service.getRateByUserAndCellar(cellar, member)
+
+        then: "the rates are getting from dao"
+        1 * cellarDAOService.getRateByUserAndCellar(cellar, member)
+    }
+
+    void "test adding a rate for a cellar"() {
+        given : "A cellar, a member and a memberCellarRate without errors"
+        Cellar cellar = new Cellar()
+        Member member = Mock()
+        MemberCellarRate memberCellarRate = Mock(MemberCellarRate) {
+            hasErrors() >> false
+        }
+
+        when : "The addRate method is called"
+        service.addRateForCellar(cellar, member, 2)
+
+        then: "the dao methods is called to save the new rate and the cellar rate is computed and saved"
+        1 * cellarDAOService.getRateByUserAndCellar(_, _) >> memberCellarRate
+        1 * cellarDAOService.addMemberRating(_) >> memberCellarRate
+        1 * cellarDAOService.computeRateForCellar(cellar) >> 5.floatValue()
+        1 * cellarDAOService.saveCellar(_)
+    }
+
+    void "test adding not correctly a rate for a cellar"() {
+        given : "A cellar, a member and a memberCellarRate with errors"
+        Cellar cellar = Mock(Cellar)
+        Member member = Mock(Member)
+        MemberCellarRate memberCellarRate = Mock(MemberCellarRate) {
+            hasErrors() >> true
+        }
+
+        when : "The addRate method is called"
+        service.addRateForCellar(cellar, member, 2)
+
+        then: "the dao method is called to saved the new rate but no computing neither update for cellar rate"
+        1 * cellarDAOService.addMemberRating(_) >> memberCellarRate
+        0 * cellarDAOService.computeRateForCellar(cellar)
+        0 * cellarDAOService.saveCellar(_)
+    }
 }

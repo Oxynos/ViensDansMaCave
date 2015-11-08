@@ -4,7 +4,7 @@
     <meta name="layout" content="main">
     <title></title>
 </head>
-
+<body>
 <a href="#list-wineCellar" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div class="nav" role="navigation">
 
