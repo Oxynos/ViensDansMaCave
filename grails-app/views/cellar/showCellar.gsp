@@ -7,14 +7,6 @@
 
 <body>
 
-<g:if test="${isMe}">
-    <div class="row">
-        <div class="col-xs-12 text-center">
-            <g:link action="addWine" class="btn btn-danger">Ajouter un vin à ma cave</g:link>
-        </div>
-    </div>
-</g:if>
-
 <div class="row">
     <div class="col-xs-12" role="main">
         <h1>La cave de ${member.username} (Note : ${member.cellar.rate}/5)</h1>
@@ -66,7 +58,9 @@
                                 class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></g:link>
                         <g:if test="${isMe}">
                             <g:link controller="cellar" action="removeWineFromCellar"
-                                    id="${wineCellarInstance.wine.id}" onclick="return confirm('Voulez-vous vraiment supprimer ce vin de votre cave ?');" class="btn btn-danger" alt="Supprimer ce vin"
+                                    id="${wineCellarInstance.wine.id}"
+                                    onclick="return confirm('Voulez-vous vraiment supprimer ce vin de votre cave ?');"
+                                    class="btn btn-danger" alt="Supprimer ce vin"
                                     title="Supprimer ce vin"><span
                                     class="glyphicon glyphicon-trash" aria-hidden="true"></span></g:link></g:if></td>
 
@@ -81,6 +75,14 @@
     </div>
 </div>
 </div>
+
+<g:if test="${isMe}">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <g:link action="addWine" class="btn btn-danger">Ajouter un vin à ma cave</g:link>
+        </div>
+    </div>
+</g:if>
 
 </body>
 </html>

@@ -25,30 +25,36 @@
 <div id="page-header">
     <div class="container">
         <div role="banner" class="row">
-            <a class="col-xs-7" href="${createLink(uri: '/')}"><img
+            <a class="col-xs-6" href="${createLink(uri: '/')}"><img
                     src="${resource(dir: 'images', file: 'WineBottle.jpg')}"
                     alt="Logo" class="img-circle" id="logo">
 
                 <h1>Viens dans ma cave</h1></a>
             <sec:ifNotLoggedIn>
-                <div class="col-xs-5 text-right margin-top-20">
-                    <g:link controller='login' action='index' class="btn btn-default"><span
-                            class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Se connecter</g:link>
-                    <g:link controller='member' action='createSimpleAccount' class="btn btn-default"><span
-                            class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Créer un compte</g:link>
+                <div class="col-xs-4 col-xs-offset-2 margin-top-20">
+                    <ul class="nav nav-pills">
+                        <li role="presentation"><g:link controller='login' action='index'><span
+                                class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Se connecter</g:link></li>
+                        <li role="presentation"><g:link controller='member' action='createSimpleAccount'><span
+                                class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Créer un compte</g:link></li>
+                    </ul>
                 </div>
             </sec:ifNotLoggedIn>
             <sec:ifLoggedIn>
-                <div class="col-xs-5 text-right margin-top-20">
-                    <g:link controller='logout' action='index' class="btn btn-default"><span
-                            class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Se déconnecter</g:link>
-                    <g:link controller='member' action='showSimpleAccount' class="btn btn-default"><span
-                            class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mon compte</g:link>
-                    <g:link controller='Cellar' action='showCellar' class="btn btn-default"><span
-                            class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span> Ma cave</g:link>
-                    <g:link controller='Cellar' action='index' class="btn btn-default"><span
-                            class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>Toutes les caves</g:link>
+
+                <div class="col-xs-6 margin-top-20">
+                    <ul class="nav nav-pills">
+                        <li role="presentation"><g:link controller='logout' action='index'><span
+                                class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Se déconnecter</g:link></li>
+                        <li role="presentation"><g:link controller='member' action='showSimpleAccount'><span
+                                class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mon compte</g:link></li>
+                        <li role="presentation"><g:link controller='Cellar' action='showCellar'><span
+                                class="glyphicon glyphicon-home" aria-hidden="true"></span> Ma cave</g:link></li>
+                        <li role="presentation"><g:link controller='Cellar' action='index'><span
+                                class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>Toutes les caves</g:link></li>
+                    </ul>
                 </div>
+
             </sec:ifLoggedIn>
         </div>
     </div>

@@ -10,6 +10,10 @@
     padding-top: 40px;
 }
 
+.margin-left-20 {
+    margin-left:20px;
+}
+
 #logo {
     width: 80px;
     float: left;
@@ -36,6 +40,14 @@
     color: white;
 }
 
+#page-header .nav a:hover {
+    color:black;
+}
+
+#page-header a:hover {
+    text-decoration: none;
+}
+
 #page-header a.btn {
     color: black;
 }
@@ -50,6 +62,10 @@ body {
 
 .table > tbody > tr > td {
     vertical-align: middle !important;
+}
+
+.table-striped .odd {
+    background-color:white;
 }
 
 body {

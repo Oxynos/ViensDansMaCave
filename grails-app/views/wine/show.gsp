@@ -1,62 +1,64 @@
-
 <%@ page import="viensdansmacave.Wine" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'wine.label', default: 'Wine')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#show-wine" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="show-wine" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<ol class="property-list wine">
-			
-				<g:if test="${wineInstance?.name}">
-				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="wine.name.label" default="Name" /></span>
-					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${wineInstance}" field="name"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${wineInstance?.year}">
-				<li class="fieldcontain">
-					<span id="year-label" class="property-label"><g:message code="wine.year.label" default="Year" /></span>
-					
-						<span class="property-value" aria-labelledby="year-label"><g:fieldValue bean="${wineInstance}" field="year"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${wineInstance?.color}">
-				<li class="fieldcontain">
-					<span id="color-label" class="property-label"><g:message code="wine.color.label" default="Color" /></span>
-					
-						<span class="property-value" aria-labelledby="color-label"><g:fieldValue bean="${wineInstance}" field="color"/></span>
-					
-				</li>
-				</g:if>
-			
-			</ol>
-			<g:form url="[resource:wineInstance, action:'delete']" method="DELETE">
-				<fieldset class="buttons">
-					<g:link class="edit" action="edit" resource="${wineInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
-		</div>
-	</body>
+<head>
+    <meta name="layout" content="main">
+    <g:set var="entityName" value="${message(code: 'wine.label', default: 'Wine')}"/>
+</head>
+
+<body>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1>Détails du vin</h1>
+    </div>
+</div>
+
+<div class="row">
+    <g:if test="${flash.message}">
+        <div class="alert alert-info col-xs-6" role="status">${flash.message}</div>
+    </g:if>
+</div>
+
+<div class="row margin-top-20">
+    <div class="col-xs-7">
+        <ol class="list-group">
+
+            <g:if test="${wineInstance?.name}">
+                <li class="list-group-item">
+                    <div class="row">
+                        <span id="name-label" class="col-xs-5 text-right">Nom</span>
+
+                        <span class="col-xs-6 col-xs-offset-1" aria-labelledby="name-label"><g:fieldValue bean="${wineInstance}"
+                                                                                          field="name"/></span>
+                    </div>
+                </li>
+            </g:if>
+
+            <g:if test="${wineInstance?.year}">
+                <li class="list-group-item">
+                    <div class="row">
+                        <span id="year-label" class="col-xs-5 text-right">Année</span>
+
+                        <span class="col-xs-6 col-xs-offset-1" aria-labelledby="year-label"><g:fieldValue bean="${wineInstance}"
+                                                                                                field="year"/></span>
+                    </div>
+                </li>
+            </g:if>
+
+            <g:if test="${wineInstance?.color}">
+                <li class="list-group-item">
+                    <div class="row">
+                        <span id="color-label" class="col-xs-5 text-right">Couleur</span>
+
+                        <span class="col-xs-6 col-xs-offset-1" aria-labelledby="color-label"><g:fieldValue bean="${wineInstance}"
+                                                                                                 field="color"/></span>
+                    </div>
+                </li>
+            </g:if>
+
+        </ol>
+    </div>
+</div>
+</body>
 </html>
