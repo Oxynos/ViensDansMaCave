@@ -47,6 +47,9 @@ class TestSetService {
         rate2 = new MemberCellarRate(cellar: member1.cellar, member: member3, rate: 2).save()
         member1.cellar.addToMemberRating(rate2).save()
         member3.addToMemberRating(rate2).save()
+
+        member1.cellar.rate = 3
+        member1.cellar.save()
     }
 
     void createMembers() {

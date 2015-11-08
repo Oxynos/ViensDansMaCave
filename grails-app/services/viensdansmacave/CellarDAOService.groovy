@@ -56,4 +56,11 @@ class CellarDAOService {
     def getRateByUserAndCellar(Cellar cellar, Member member) {
         MemberCellarRate.findByMemberAndCellar(member, cellar)
     }
+
+    def getBestCellars() {
+        Cellar.createCriteria().list(){
+            order('rate', 'desc')
+            maxResults 10
+        }
+    }
 }

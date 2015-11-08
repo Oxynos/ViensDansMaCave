@@ -57,6 +57,33 @@
             </tbody>
         </table>
     </div>
+
+    <div class="col-xs-6">
+        <table class="table table-striped">
+            <caption>Caves les mieux notées</caption>
+            <thead>
+            <tr>
+
+                <th>Nom</th>
+
+                <th>Note</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <g:each in="${cellars}" status="i" var="cellarInstance">
+                <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                    <td>${fieldValue(bean: cellarInstance, field: "member.username")}</td>
+
+                    <td>${fieldValue(bean: cellarInstance, field: "rate")}</td>
+
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

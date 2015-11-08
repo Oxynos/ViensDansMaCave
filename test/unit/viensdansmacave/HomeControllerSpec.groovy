@@ -24,5 +24,6 @@ class HomeControllerSpec extends Specification {
 
         then: "The service method wineRanking is called"
         1 * cellarService.wineRanking()
+        1 * cellarService.getCellarRanking()
     }
 }

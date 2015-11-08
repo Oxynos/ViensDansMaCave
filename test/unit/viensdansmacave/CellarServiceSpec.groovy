@@ -166,4 +166,12 @@ class CellarServiceSpec extends Specification {
         0 * cellarDAOService.computeRateForCellar(cellar)
         0 * cellarDAOService.saveCellar(_)
     }
+
+    void "Test that the cellarRanking method calls the DAO method"() {
+        when: "The cellarRanking method is called"
+        service.getCellarRanking()
+
+        then: "The DAO method is called"
+        1 * cellarDAOService.getBestCellars()
+    }
 }
