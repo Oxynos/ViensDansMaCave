@@ -65,7 +65,7 @@
         <g:form url="[action: 'addWineInCellar']" class="col-xs-6">
             <fieldset class="form">
                 <div class="form-group">
-                    <g:select name="wine" from="${wines}" optionKey="id" class="form-control"/>
+                    <g:select name="wine" from="${wines}" optionKey="id" class="form-control" optionValue="${{it.name +' - '+it.color + ' - ' +it.year}}"/>
                 </div>
 
                 <div class="form-group">
