@@ -55,6 +55,8 @@ crashlytics-build.properties
 # suggested that you use the grails integrate-with --git command
 # to generate your .gitignore file.
 
+.slcache/
+
 # web application files
 /web-app/WEB-INF/classes
 
