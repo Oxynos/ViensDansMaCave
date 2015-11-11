@@ -43,7 +43,7 @@ class WineController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'wine.label', default: 'Wine'), wineInstance.id])
+                flash.message = message(code: 'wine.created.message', args: [message(code: 'wine.label', default: 'Wine'), wineInstance.id])
                 redirect wineInstance
             }
             '*' { respond wineInstance, [status: CREATED] }
