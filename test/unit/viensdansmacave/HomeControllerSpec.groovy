@@ -15,9 +15,6 @@ class HomeControllerSpec extends Specification {
         controller.cellarService = cellarService
     }
 
-    def cleanup() {
-    }
-
     void "Test that the index action calls the service method"() {
         when: "The index action is called"
         controller.index()

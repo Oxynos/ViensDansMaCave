@@ -28,9 +28,6 @@ class MemberRoleSpec extends Specification {
         role2.id = 2
     }
 
-    def cleanup() {
-    }
-
     void "test constraints for a valid MemberRole"() {
         given: "a MemberRole initialized with valid member and role instances"
         Member member

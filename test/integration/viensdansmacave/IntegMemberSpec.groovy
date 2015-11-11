@@ -1,7 +1,7 @@
 package viensdansmacave
 
 
-import spock.lang.*
+import spock.lang.Specification
 
 /**
  *
@@ -9,12 +9,6 @@ import spock.lang.*
 class IntegMemberSpec extends Specification {
 
     TestSetService testSetService
-
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     void "test getAuthorities method returns the correct set"() {
         given: "a test set"

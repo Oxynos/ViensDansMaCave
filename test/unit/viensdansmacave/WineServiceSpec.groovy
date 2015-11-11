@@ -2,7 +2,6 @@ package viensdansmacave
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
-import wine.WineColor
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -15,10 +14,6 @@ class WineServiceSpec extends Specification {
     def setup() {
         wineDAOService = Mock(WineDAOService)
         service.wineDAOService = wineDAOService
-    }
-
-    def cleanup() {
-
     }
 
     void "test getting all names distinct"() {

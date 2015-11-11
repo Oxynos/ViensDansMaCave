@@ -16,9 +16,6 @@ class RoleSpec extends Specification {
         role = new Role()
     }
 
-    def cleanup() {
-    }
-
     void "test constraints for a valid role"() {
         given: "a role initialized with a non blank and unique authority"
         role.authority = testAuthority

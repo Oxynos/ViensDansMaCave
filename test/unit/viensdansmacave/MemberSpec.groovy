@@ -18,9 +18,6 @@ class MemberSpec extends Specification {
         member = new Member();
     }
 
-    def cleanup() {
-    }
-
     void "test constraints for a valid member"() {
         given: "a member initialized with a non blank and unique username, a non blank password, a valid email, an age, a country and a city"
         member.username = testUserName

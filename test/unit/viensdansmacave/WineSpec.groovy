@@ -1,13 +1,9 @@
 package viensdansmacave
 
 import grails.test.mixin.TestFor
-import grails.test.mixin.TestMixin
-import grails.test.mixin.support.GrailsUnitTestMixin
-import spock.lang.Shared
 import spock.lang.Specification
 import wine.WineColor
 
-import java.time.Instant
 import java.time.LocalDate
 
 /**

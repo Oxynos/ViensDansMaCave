@@ -1,7 +1,7 @@
 package viensdansmacave
 
 
-import spock.lang.*
+import spock.lang.Specification
 
 /**
  *

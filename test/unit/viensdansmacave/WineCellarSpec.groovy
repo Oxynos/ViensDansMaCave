@@ -2,7 +2,6 @@ package viensdansmacave
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
-import viensdansmacave.WineCellar
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -36,8 +35,6 @@ class WineCellarSpec extends Specification {
         wineCellar.cellar = testCellar
         wineCellar.wine = testWine
         wineCellar.quantity = testQuantity
-        Wine wineDuplicate = Mock(Wine)
-        Cellar cellarDuplicate = Mock(Cellar)
 
         expect: "an invalid wineCellar"
         wineCellar.validate() == false

@@ -19,9 +19,6 @@ class MemberServiceSpec extends Specification {
         service.cellarService = cellarService
     }
 
-    def cleanup() {
-    }
-
     void "Test the saveSimpleAccount method calls the MemberDAOService method"() {
         when: "The saveSimpleAccount method is called with valid parameters"
         service.saveSimpleAccount('toto','pass')

@@ -1,10 +1,10 @@
 package viensdansmacave
 
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.test.mixin.*
+import grails.test.mixin.TestFor
+import grails.test.mixin.Mock
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.validation.Errors
-import spock.lang.*
+import spock.lang.Specification
 
 @TestFor(MemberController)
 @Mock([Member,MemberService,SpringSecurityService])

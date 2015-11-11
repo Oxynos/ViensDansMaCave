@@ -1,6 +1,7 @@
 package viensdansmacave
 
 import grails.transaction.Transactional
+import org.hibernate.HibernateException
 
 @Transactional
 class CellarDAOService {
@@ -18,7 +19,7 @@ class CellarDAOService {
         try {
             wineCellar?.delete(flush: true)
             return true
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             return false
         }
     }

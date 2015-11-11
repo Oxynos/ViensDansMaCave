@@ -1,6 +1,6 @@
 package viensdansmacave
 
-import grails.test.mixin.*
+import grails.test.mixin.TestFor
 import spock.lang.Specification
 
 /**
@@ -16,9 +16,6 @@ class CellarServiceSpec extends Specification {
             wineIsInCellar(_,_) >> Mock(WineCellar)
         }
         service.cellarDAOService = cellarDAOService
-    }
-
-    def cleanup() {
     }
 
     void "Test the removeWineFromCellar method calls the CellarDAOService method"() {

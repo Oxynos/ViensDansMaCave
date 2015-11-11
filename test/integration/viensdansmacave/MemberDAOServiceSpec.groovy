@@ -1,6 +1,6 @@
 package viensdansmacave
 
-import spock.lang.*
+import spock.lang.Specification
 
 /**
  * Created by Thomas Zoratto on 03/10/2015.

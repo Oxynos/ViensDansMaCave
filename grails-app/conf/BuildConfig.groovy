@@ -1,3 +1,4 @@
+
 grails.servlet.version = "3.0" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
@@ -105,4 +106,12 @@ coverage {
     enabledByDefault = true
     html = true
     xml = true
+}
+
+codenarc.properties = {
+    GrailsDomainHasEquals.enabled = false
+    GrailsDomainHasToString.enabled = false
+    GrailsStatelessService.doNotApplyToClassNames="TestSetService"
+    GrailsMassAssignment.doNotApplyToClassNames="*Spec"
+    ComparisonWithSelf.doNotApplyToClassNames="*Spec"
 }

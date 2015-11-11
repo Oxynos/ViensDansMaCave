@@ -9,13 +9,6 @@ import spock.lang.Specification
 @TestFor(Cellar)
 class CellarSpec extends Specification {
 
-    def setup() {
-
-    }
-
-    def cleanup() {
-    }
-
     void "test la validite d'une cave"() {
 
         given:"a member and a cellar initialized"
