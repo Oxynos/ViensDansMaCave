@@ -68,4 +68,26 @@ class WineDAOServiceSpec extends Specification {
         Wine.count == 4
     }
 
+    void "Test the save method returns potential errors" () {
+        given: "A valid Wine instance already saved"
+        Wine wine = new Wine(name:"Merlot", year:2013, color:WineColor.RED)
+
+        when: "The save method is called"
+        def res = wineDAOService.save(wine)
+
+        then: "it returns the instance with errors"
+        res.hasErrors()
+    }
+
+    void "Test the find method returns the correct instance" () {
+        given: "A test set"
+        testSetService
+
+        when: "the find method is called"
+        def res = wineDAOService.find(testSetService.wine1.id)
+
+        then: "it returns the correct instance"
+        res.id != null
+    }
+
 }

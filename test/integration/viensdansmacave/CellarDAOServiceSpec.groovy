@@ -56,6 +56,21 @@ class CellarDAOServiceSpec extends Specification{
         WineCellar.count == 4
     }
 
+    void "Test that we can't duplicate a WineCellar instance" () {
+        given: "A test set and a wineCellar"
+        testSetService
+        WineCellar wineCellar = new WineCellar()
+        wineCellar.wine = Wine.findByName("Merlot")
+        wineCellar.cellar = Member.findByUsername("toto").cellar
+        wineCellar.quantity = 1
+
+        when: "The addWineInCellar method is called"
+        def res = cellarDAOService.addWineInCellar(wineCellar)
+
+        then: "it returns the instance with errors"
+        res.hasErrors()
+    }
+
     void "Test that the wineRanking method returns the list of Wines with their ranking"() {
         given: "A test set"
         testSetService
@@ -94,6 +109,18 @@ class CellarDAOServiceSpec extends Specification{
         MemberCellarRate.count == 3
         def res = MemberCellarRate.findAllByCellar(testSetService.member2.cellar)
         res.size() == 1
+    }
+
+    void "test that we can't duplicate a rate" () {
+        given: "A test set and a member rate"
+        testSetService
+        MemberCellarRate mcr = new MemberCellarRate(cellar: Member.findByUsername("toto").cellar, member: Member.findByUsername("cedric"), rate: 4)
+
+        when: "addMemberRating method is called"
+        def res = cellarDAOService.addMemberRating(mcr)
+
+        then: "it returns the instance with errors"
+        res.hasErrors()
     }
 
     void "test getting a rate from user for a cellar"() {

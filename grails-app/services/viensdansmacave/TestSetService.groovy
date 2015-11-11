@@ -9,7 +9,9 @@ class TestSetService {
 
     Member member1, member2, member3
 
-    Cellar cellar1, cellar2, cellar3
+    Role role1
+
+    MemberRole memberRole1
 
     Wine wine1, wine2, wine3
 
@@ -49,6 +51,9 @@ class TestSetService {
         member3.addToMemberRating(rate2).save()
 
         cellarService.updateRate(member1.cellar)
+
+        role1 = new Role('monRole').save()
+        memberRole1 = new MemberRole(member1, role1).save()
     }
 
     void createMembers() {
