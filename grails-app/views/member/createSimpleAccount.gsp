@@ -40,10 +40,14 @@
                         <label>Mot de passe *</label>
                         <g:field type="password" name="password" required="true" class="form-control"></g:field>
                     </div>
-                    <br/>
+
+                    <div class="form-group">
+                        <label>Confirmation du mot de passe *</label>
+                        <g:field type="password" name="confirmation" required="true" class="form-control"></g:field>
+                    </div>
 
                     <div class="text-right">
-                        <g:actionSubmit value="Creer compte" action="saveSimpleAccount" class="btn btn-danger"/>
+                        <g:actionSubmit value="Créer compte" action="saveSimpleAccount" class="btn btn-danger"/>
                     </div>
                 </g:form>
             </div>
