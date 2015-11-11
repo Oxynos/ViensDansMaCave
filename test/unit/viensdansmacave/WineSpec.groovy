@@ -36,6 +36,7 @@ class WineSpec extends Specification {
         "valid"        | 1982                 | WineColor.RED
         "Margaux"      | 2009                 | WineColor.GREY
         "Grand Pomard" | LocalDate.now().year | WineColor.WHITE
+        "Grand Pomard" | 0                    | WineColor.WHITE
     }
 
     void "test an invalid wine"() {

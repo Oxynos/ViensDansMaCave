@@ -8,7 +8,7 @@ import spock.lang.*
 @Mock([Cellar, Member])
 class CellarControllerSpec extends Specification {
 
-    SpringSecurityService springSecurityService = Mock(SpringSecurityService) {getCurrentUser() >> Mock(Member)}
+    SpringSecurityService springSecurityService = Mock(SpringSecurityService) {getCurrentUser() >> new Member("member","")}
     CellarService cellarService = Mock(CellarService)
 
     def populateValidParams(params) {
@@ -22,6 +22,18 @@ class CellarControllerSpec extends Specification {
         when: "The index action is executed"
         controller.springSecurityService = springSecurityService
         controller.index()
+
+        then: "The model is correct"
+        !model.memberInstanceList
+        model.memberInstanceCount == 0
+        model.currentMember instanceof Member
+    }
+
+    void "Test the index action with parameter returns the correct model"() {
+
+        when: "The index action is executed"
+        controller.springSecurityService = springSecurityService
+        controller.index(10)
 
         then: "The model is correct"
         !model.memberInstanceList
@@ -60,6 +72,16 @@ class CellarControllerSpec extends Specification {
         response.redirectedUrl == '/cellar/show/1'
         controller.flash.message != null
         Cellar.count() == 1
+    }
+
+    void "Test the save action correctly redirect when called with no instance" () {
+        when: "The save action is executed with no instance"
+        request.contentType = FORM_CONTENT_TYPE
+        controller.save()
+
+        then: "A redirect is issued to the index action"
+        response.redirectedUrl == '/cellar/index'
+        controller.flash.message != null
     }
 
     void "Test that the show action returns the correct model"() {
@@ -178,6 +200,15 @@ class CellarControllerSpec extends Specification {
 
         and: "The showCellar action is called"
         response.redirectedUrl == '/cellar/showCellar'
+
+        when: "The removeWineFromCellar action is executed with no instance"
+        response.reset()
+        request.contentType = FORM_CONTENT_TYPE
+        controller.removeWineFromCellar()
+
+        then: "A redirect is issued to the index action"
+        response.redirectUrl == '/cellar/index'
+        controller.flash.message != null
     }
 
     void "Test that the increaseQuantity action calls the service method increaseQuantity"() {
@@ -188,6 +219,15 @@ class CellarControllerSpec extends Specification {
 
         then: "The increaseQuantity method of the service is called"
         1 * cellarService.increaseQuantity(_)
+
+        when: "The increaseQuantity action is executed with no instance"
+        response.reset()
+        request.contentType = FORM_CONTENT_TYPE
+        controller.increaseQuantity()
+
+        then: "A redirect is issued to the index action"
+        response.redirectUrl == '/cellar/index'
+        controller.flash.message != null
     }
 
     void "Test that the reduceQuantity action calls the service method reduceQuantity"() {
@@ -196,8 +236,17 @@ class CellarControllerSpec extends Specification {
         WineCellar wineCellar = Mock(WineCellar)
         controller.reduceQuantity(wineCellar)
 
-        then: "The increaseQuantity method of the service is called"
+        then: "The reduceQuantity method of the service is called"
         1 * cellarService.reduceQuantity(_)
+
+        when: "The reduceQuantity action is executed with no instance"
+        response.reset()
+        request.contentType = FORM_CONTENT_TYPE
+        controller.reduceQuantity()
+
+        then: "A redirect is issued to the index action"
+        response.redirectUrl == '/cellar/index'
+        controller.flash.message != null
     }
 
     void "test rate cellar access"() {
@@ -362,6 +411,16 @@ class CellarControllerSpec extends Specification {
         and: "the correct view is rendering"
         view == '/cellar/addWine'
         flash.message == 'Aucun vin ne correspond à votre recherche'
+
+        when: "the action is called"
+        controller.findWine()
+
+        then: "wine are selected by names and years but returns null"
+        1 * wineService.getWinesByNameAndYear(null, 1981) >> null
+
+        and: "the correct view is rendered and a message appear"
+        view == '/cellar/addWine'
+        flash.message == 'Sélectionnez au moins un critère !'
     }
 
     void "test finding wine action without param"() {
