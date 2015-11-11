@@ -18,6 +18,7 @@ class MemberControllerSpec extends Specification {
         assert params != null
         params["username"] = 'toto'
         params["password"] = 'pass'
+        params["confirmation"] = 'pass'
     }
 
     void "Test the index action returns the correct model"() {
@@ -163,6 +164,14 @@ class MemberControllerSpec extends Specification {
         view == '/member/saveSimpleAccount'
 
         when: "The saveSimpleAccount action is executed with an invalid instance"
+        controller.memberService = memberServiceMockErr
+        controller.saveSimpleAccount()
+
+        then: "The createSimpleAccount view is rendered"
+        view == '/member/createSimpleAccount'
+
+        when: "The saveSimpleAccount is executed with an invalid password confirmation"
+        params.confirmation = "notpass"
         controller.memberService = memberServiceMockErr
         controller.saveSimpleAccount()
 

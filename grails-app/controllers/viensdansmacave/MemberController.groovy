@@ -69,10 +69,19 @@ class MemberController {
     def saveSimpleAccount() {
         def username = params.username
         def password = params.password
+        def confirmation = params.confirmation
+        def retourCreation = new Member()
 
-        def retourCreation
 
-        retourCreation = memberService.saveSimpleAccount(username, password)
+        if(!confirmation.equals(password)) {
+            retourCreation.errors.rejectValue(
+                    'password',
+                    'member.password.doesnotmatch')
+        }
+        else
+        {
+            retourCreation = memberService.saveSimpleAccount(username, password)
+        }
 
         if (!retourCreation.hasErrors()) {
             render(view: 'saveSimpleAccount',model:[retourCreation: retourCreation.username])
