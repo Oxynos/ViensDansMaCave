@@ -4,4 +4,4 @@
 Le site permet à une communauté de membres de gérer les bouteilles de leur cave et de noter les caves des autres membres.
 Un classement recense les meilleures caves et les meilleures bouteilles.
 
-[![Build Status](https://travis-ci.org/Oxynos/ViensDansMaCave.svg)](https://travis-ci.org/Oxynos/ViensDansMaCave)
+[![Build Status](https://travis-ci.org/Oxynos/ViensDansMaCave.svg)](https://travis-ci.org/Oxynos/ViensDansMaCave)[![Coverage Status](https://coveralls.io/repos/Oxynos/ViensDansMaCave/badge.svg?branch=master&service=github)](https://coveralls.io/github/Oxynos/ViensDansMaCave?branch=master)
