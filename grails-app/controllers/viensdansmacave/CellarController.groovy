@@ -96,10 +96,11 @@ class CellarController {
         def member = springSecurityService.currentUser
         if (params.rate) {
             def ret = cellarService.addRateForCellar(cellar, member, params.rate as float)
-            if (ret.hasErrors())
+            if (ret.hasErrors()) {
                 flash.message = "Votre vote n'a pas été prise en compte !"
-            else
+            } else {
                 flash.message = "Vote enregistrée !"
+            }
         }
         def rate = cellarService.getRateByUserAndCellar(cellar, member)
         render(view: 'rateCellar', model: [rate: rate, cellar: cellar])
