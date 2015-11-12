@@ -30,7 +30,7 @@ class MemberController {
     @Secured('isAuthenticated()')
     def showSimpleAccount() {
         def member = springSecurityService.currentUser
-        render(view: 'showSimpleAccount', model:[member: member])
+        render(view: 'showSimpleAccount', model: [member: member])
     }
 
     def create() {
@@ -72,22 +72,18 @@ class MemberController {
         def confirmation = params.confirmation
         def retourCreation = new Member()
 
-        if(confirmation.equals(password)){
+        if (confirmation.equals(password)) {
             retourCreation = memberService.saveSimpleAccount(username, password)
-        }
-        else
-        {
+        } else {
             retourCreation.errors.rejectValue(
                     'password',
                     'member.password.doesnotmatch')
         }
 
         if (retourCreation.hasErrors()) {
-            render(view: 'createSimpleAccount',model:[retourCreation: retourCreation])
-        }
-        else
-        {
-            render(view: 'saveSimpleAccount',model:[retourCreation: retourCreation.username])
+            render(view: 'createSimpleAccount', model: [retourCreation: retourCreation])
+        } else {
+            render(view: 'saveSimpleAccount', model: [retourCreation: retourCreation.username])
         }
     }
 
@@ -98,7 +94,7 @@ class MemberController {
     @Secured('isAuthenticated()')
     def editSimpleAccount() {
         def member = springSecurityService.currentUser
-        render(view: 'editSimpleAccount', model:[member: member])
+        render(view: 'editSimpleAccount', model: [member: member])
     }
 
     @Transactional
@@ -127,20 +123,20 @@ class MemberController {
     @Secured('isAuthenticated()')
     def updateSimpleAccount(Member member, String passwordConfirm) {
 
-        if(!passwordConfirm.equals(member.password)) {
+        if (!passwordConfirm.equals(member.password)) {
             member.errors.rejectValue(
                     'password',
                     'member.password.doesnotmatch')
         }
 
         if (member.hasErrors()) {
-            respond member.errors, view: 'editSimpleAccount', model:[member: member, passwordConfirm: passwordConfirm]
+            respond member.errors, view: 'editSimpleAccount', model: [member: member, passwordConfirm: passwordConfirm]
             return
         }
 
         memberService.updateSimpleAccount(member)
         flash.message = "Votre compte a bien été mis à jour"
-        redirect action:"showSimpleAccount"
+        redirect action: "showSimpleAccount"
     }
 
     @Transactional

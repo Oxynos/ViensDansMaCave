@@ -39,7 +39,7 @@ class CellarController {
         def currentMember = springSecurityService.currentUser
         def isMe = false
         if (currentMember == member) isMe = true
-        render(view: 'showCellar', model:[member: member, isMe: isMe])
+        render(view: 'showCellar', model: [member: member, isMe: isMe])
     }
 
     def addWine() {
@@ -56,8 +56,7 @@ class CellarController {
         def wines = wineService.getWinesByNameAndYear(params.name, params.year as int)
         if (wines == null) {
             flash.message = 'Sélectionnez au moins un critère !'
-        }
-        else if (wines.isEmpty()) {
+        } else if (wines.isEmpty()) {
             flash.message = 'Aucun vin ne correspond à votre recherche'
         }
         render view: "addWine", model: [names: names, years: years, wines: wines]
@@ -71,13 +70,12 @@ class CellarController {
 
         def ret = cellarService.addWineInCellar(wine, member.cellar, quantity)
 
-        if(ret.hasErrors()) {
+        if (ret.hasErrors()) {
             def names = wineService.findWineNames()
             def years = wineService.findWineYears()
-            render (view: 'addWine', model:[ret: ret, names: names, years: years])
+            render(view: 'addWine', model: [ret: ret, names: names, years: years])
             flash.message = "Erreur lors de l'ajout !"
-        }
-        else {
+        } else {
             redirect(action: 'showCellar')
             flash.message = "Vin ajouté !"
         }
@@ -88,8 +86,7 @@ class CellarController {
         if (cellar.member.equals(member)) {
             flash.message = "Vous ne pouvez pas noter votre cave !"
             redirect action: "index"
-        }
-        else {
+        } else {
             def rate = cellarService.getRateByUserAndCellar(cellar, member)
             render(view: 'rateCellar', model: [rate: rate, cellar: cellar])
         }
@@ -116,11 +113,11 @@ class CellarController {
         }
 
         if (cellarInstance.hasErrors()) {
-            respond cellarInstance.errors, view:'create'
+            respond cellarInstance.errors, view: 'create'
             return
         }
 
-        cellarInstance.save flush:true
+        cellarInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -143,18 +140,18 @@ class CellarController {
         }
 
         if (cellarInstance.hasErrors()) {
-            respond cellarInstance.errors, view:'edit'
+            respond cellarInstance.errors, view: 'edit'
             return
         }
 
-        cellarInstance.save flush:true
+        cellarInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Cellar.label', default: 'Cellar'), cellarInstance.id])
                 redirect cellarInstance
             }
-            '*'{ respond cellarInstance, [status: OK] }
+            '*' { respond cellarInstance, [status: OK] }
         }
     }
 
@@ -166,14 +163,14 @@ class CellarController {
             return
         }
 
-        cellarInstance.delete flush:true
+        cellarInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Cellar.label', default: 'Cellar'), cellarInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -183,7 +180,7 @@ class CellarController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'cellar.label', default: 'Cellar'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
@@ -196,7 +193,7 @@ class CellarController {
         Cellar cellar = springSecurityService.currentUser.cellar
         cellarService.removeWineFromCellar(wine, cellar)
 
-        flash.message="Le vin a bien été supprimé."
+        flash.message = "Le vin a bien été supprimé."
         redirect action: "showCellar"
     }
 
@@ -207,7 +204,7 @@ class CellarController {
         }
 
         cellarService.reduceQuantity(wineCellar)
-        redirect action:"showCellar"
+        redirect action: "showCellar"
     }
 
     def increaseQuantity(WineCellar wineCellar) {
@@ -217,6 +214,6 @@ class CellarController {
         }
 
         cellarService.increaseQuantity(wineCellar)
-        redirect action:"showCellar"
+        redirect action: "showCellar"
     }
 }

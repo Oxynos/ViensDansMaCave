@@ -53,10 +53,11 @@ class WineController {
     }
 
     def saveAndAddInCellar(Wine wineInstance) {
-        if (!wineService.save(wineInstance).hasErrors()) {
-            redirect (controller: "cellar", action: "addWineInCellar", params: [wine: wineInstance.id, quantity: 1])
+
+        if (wineService.save(wineInstance).hasErrors()) {
+            render(view: 'create', model: [wineInstance: wineInstance])
         } else {
-            render (view: 'create', model:[wineInstance: wineInstance])
+            redirect(controller: "cellar", action: "addWineInCellar", params: [wine: wineInstance.id, quantity: 1])
         }
     }
 
