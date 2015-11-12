@@ -71,14 +71,15 @@ class CellarController {
 
         def ret = cellarService.addWineInCellar(wine, member.cellar, quantity)
 
-        if (!ret.hasErrors()) {
-            redirect(action: 'showCellar')
-            flash.message = "Vin ajouté !"
-        } else {
+        if(ret.hasErrors()) {
             def names = wineService.findWineNames()
             def years = wineService.findWineYears()
             render (view: 'addWine', model:[ret: ret, names: names, years: years])
             flash.message = "Erreur lors de l'ajout !"
+        }
+        else {
+            redirect(action: 'showCellar')
+            flash.message = "Vin ajouté !"
         }
     }
 
