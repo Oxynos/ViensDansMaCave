@@ -5,7 +5,8 @@ branches:
   only:
   - master
   - sprint*
-script: ./grailsw refresh-dependencies && ./grailsw test-app
+script: ./grailsw refresh-dependencies && ./grailsw test-app -echoOut -echoErr -coverage -xml
+after_success: ./grailsw coveralls
 deploy:
     provider: heroku
     api_key: 6a5dfac5-2707-4143-a4f7-dbc101644ccf
